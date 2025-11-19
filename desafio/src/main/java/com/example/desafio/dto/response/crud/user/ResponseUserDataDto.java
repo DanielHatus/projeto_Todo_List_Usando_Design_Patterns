@@ -10,7 +10,7 @@ public class ResponseUserDataDto{
     private String email;
     private String username;
     private Role role;
-    private boolean isEnabled;
+    private boolean enabled;
     private LocalDate dateRegister;
     private LocalDate lastUpdate;
 
@@ -55,11 +55,11 @@ public class ResponseUserDataDto{
     }
 
     public boolean isEnabled() {
-        return isEnabled;
+        return enabled;
     }
 
     public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
+        this.enabled = enabled;
     }
 
     public LocalDate getDateRegister() {

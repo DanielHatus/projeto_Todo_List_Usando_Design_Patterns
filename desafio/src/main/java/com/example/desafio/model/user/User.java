@@ -21,13 +21,13 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Role role;
-    private boolean isEnabled;
+    private boolean enabled;
 
     private LocalDate dateRegister;
     private LocalDate lastUpdate;
 
     public User(){
-        this.isEnabled=true;
+        this.enabled=true;
         this.role=Role.USER;
         this.dateRegister=LocalDate.now();
         this.lastUpdate=LocalDate.now();
@@ -51,7 +51,11 @@ public class User {
     }
 
     public boolean isEnabled() {
-        return isEnabled;
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public String getFirstName() {
@@ -94,14 +98,23 @@ public class User {
         this.password = password;
     }
 
+    public LocalDate getDateRegister() {
+        return dateRegister;
+    }
+
+    public LocalDate getLastUpdate() {
+        return lastUpdate;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof User user)) return false;
-        return isEnabled() == user.isEnabled() && Objects.equals(getId(), user.getId()) && Objects.equals(getFirstName(), user.getFirstName()) && Objects.equals(getLastName(), user.getLastName()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getPassword(), user.getPassword()) && getRole() == user.getRole();
+        return isEnabled() == user.isEnabled() && Objects.equals(getId(), user.getId()) && Objects.equals(getFirstName(), user.getFirstName()) && Objects.equals(getLastName(), user.getLastName()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getPassword(), user.getPassword()) && getRole() == user.getRole() && Objects.equals(getDateRegister(), user.getDateRegister()) && Objects.equals(getLastUpdate(), user.getLastUpdate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getLastName(), getEmail(), getUsername(), getPassword(), getRole(), isEnabled());
+        return Objects.hash(getId(), getFirstName(), getLastName(), getEmail(), getUsername(), getPassword(), getRole(), isEnabled(), getDateRegister(), getLastUpdate());
     }
 }

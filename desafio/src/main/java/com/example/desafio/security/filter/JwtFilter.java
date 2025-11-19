@@ -1,5 +1,6 @@
 package com.example.desafio.security.filter;
 
+import com.example.desafio.exceptions.typo.security.filter.response.AuthenticationExceptionEntry;
 import com.example.desafio.exceptions.typo.security.filter.typo.token.invalid.TokenInvalid;
 import com.example.desafio.exceptions.typo.security.filter.typo.token.notfound.TokenNotFound;
 import com.example.desafio.security.token.get.email.GetEmailByPayload;
@@ -11,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -24,11 +26,18 @@ public class JwtFilter extends OncePerRequestFilter{
     private final TokenIsValid tokenIsValid;
     private final GetEmailByPayload getEmailByPayload;
     private final CustomUserDetailsService customUserDetailsService;
+    private final AuthenticationExceptionEntry authenticationExceptionEntry;
 
-    public JwtFilter(TokenIsValid tokenIsValid, GetEmailByPayload getEmailByPayload, CustomUserDetailsService customUserDetailsService) {
+    public JwtFilter(
+            TokenIsValid tokenIsValid,
+            GetEmailByPayload getEmailByPayload,
+            CustomUserDetailsService customUserDetailsService,
+            AuthenticationExceptionEntry authenticationExceptionEntry) {
+
         this.tokenIsValid = tokenIsValid;
         this.getEmailByPayload = getEmailByPayload;
         this.customUserDetailsService = customUserDetailsService;
+        this.authenticationExceptionEntry = authenticationExceptionEntry;
     }
 
     @Override
@@ -51,27 +60,32 @@ public class JwtFilter extends OncePerRequestFilter{
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String header=request.getHeader("Authorization");
-        if (!headerAndTokenExistsInRequest(header)){
-            log.error("❌ No header or tokens were found in the request. Therefore, " +
-                    "the requesting client is not authorized to use the current endpoint.");
+        try{
+            String header=request.getHeader("Authorization");
+            if (!headerAndTokenExistsInRequest(header)){
+                log.error("❌ No header or tokens were found in the request. Therefore, " +
+                        "the requesting client is not authorized to use the current endpoint.");
 
-            throw new TokenNotFound("header or token not found. insert the token in header Authroization,using Bearer <space> token");
+                throw new TokenNotFound("header or token not found. insert the token in header Authroization,using Bearer <space> token");
+            }
+            log.debug("✅ The header and tokens were successfully found.");
+
+            String token=getTokenInHeader(header);
+            if (!tokenIsValid.execute(token)){
+                log.error(" ❌The token passed in the request is invalid. Either the token was passed incorrectly or it has been altered.");
+
+                throw new TokenInvalid("Invalid token. Please log in again and enter a new token in the header.");
+            }
+            log.debug("✅ The token was successfully validated.");
+
+            saveUserInContextSecurity(token);
+
+            filterChain.doFilter(request,response);
+            log.debug("✅ The entire authentication filtering process occurred correctly. The flow of this filter will continue from now on.");
         }
-        log.debug("✅ The header and tokens were successfully found.");
-
-        String token=getTokenInHeader(header);
-        if (!tokenIsValid.execute(token)){
-            log.error(" ❌The token passed in the request is invalid. Either the token was passed incorrectly or it has been altered.");
-
-            throw new TokenInvalid("Invalid token. Please log in again and enter a new token in the header.");
+        catch (AuthenticationException e){
+            authenticationExceptionEntry.commence(request,response,e);
         }
-        log.debug("✅ The token was successfully validated.");
-
-        saveUserInContextSecurity(token);
-
-        filterChain.doFilter(request,response);
-        log.debug("✅ The entire authentication filtering process occurred correctly. The flow of this filter will continue from now on.");
 
     }
 
