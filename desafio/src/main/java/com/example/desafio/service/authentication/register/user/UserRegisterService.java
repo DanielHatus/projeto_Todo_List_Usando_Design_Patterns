@@ -1,8 +1,7 @@
 package com.example.desafio.service.authentication.register.user;
 
 import com.example.desafio.dto.request.authentication.UserRegisterDto;
-import com.example.desafio.exceptions.typo.runtime.badrequest.BadRequestException;
-import com.example.desafio.mapper.UserMapperCore;
+import com.example.desafio.mapper.user.UserMapperCore;
 import com.example.desafio.model.user.User;
 import com.example.desafio.repository.user.UserRepository;
 import com.example.desafio.utils.encryptedpassword.EncryptedPassword;

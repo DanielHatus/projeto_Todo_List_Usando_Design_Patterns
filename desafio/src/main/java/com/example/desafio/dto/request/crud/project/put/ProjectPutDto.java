@@ -1,22 +1,21 @@
-package com.example.desafio.dto.request.crud.project.post;
-
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+package com.example.desafio.dto.request.crud.project.put;
 
 import java.time.LocalDate;
 
-public class ProjectPostDto{
-    @NotBlank
+public class ProjectPutDto {
+    private String projectCreator;
     private String passwordAccess;
-
-    @NotBlank
     private String nameProject;
-
-    @NotBlank
     private String description;
-
-    @NotNull
     private String endDate;
+
+    public String getProjectCreator() {
+        return projectCreator;
+    }
+
+    public void setProjectCreator(String projectCreator) {
+        this.projectCreator = projectCreator;
+    }
 
     public String getPasswordAccess() {
         return passwordAccess;

@@ -1,4 +1,4 @@
-package com.example.desafio.mapper;
+package com.example.desafio.mapper.user;
 
 import com.example.desafio.dto.request.authentication.UserRegisterDto;
 import com.example.desafio.dto.request.crud.user.patch.UserPatchDto;
@@ -6,7 +6,6 @@ import com.example.desafio.dto.request.crud.user.put.UserPutDto;
 import com.example.desafio.dto.response.crud.user.ResponseUserDataDto;
 import com.example.desafio.model.user.User;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.springframework.data.domain.Page;

@@ -1,4 +1,4 @@
-package com.example.desafio.facade.register;
+package com.example.desafio.facade.register.user;
 
 import com.example.desafio.dto.request.authentication.UserRegisterDto;
 import com.example.desafio.dto.response.authentication.ResponseDtoTokens;
@@ -7,7 +7,6 @@ import com.example.desafio.service.authentication.register.token.GenerateTokensR
 import com.example.desafio.service.authentication.register.user.UserRegisterService;
 import com.example.desafio.service.authentication.validation.EmailAndUsernameIsUnique;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -5,7 +5,7 @@ import com.example.desafio.dto.request.crud.user.put.UserPutDto;
 import com.example.desafio.dto.response.crud.user.ResponseUserDataDto;
 import com.example.desafio.enums.Role;
 import com.example.desafio.exceptions.typo.runtime.notfound.NotFoundException;
-import com.example.desafio.mapper.UserMapperCore;
+import com.example.desafio.mapper.user.UserMapperCore;
 import com.example.desafio.model.user.User;
 import com.example.desafio.repository.user.UserRepository;
 import com.example.desafio.utils.encryptedpassword.EncryptedPassword;

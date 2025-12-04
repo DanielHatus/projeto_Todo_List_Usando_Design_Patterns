@@ -1,4 +1,4 @@
-package com.example.desafio.facade.login;
+package com.example.desafio.facade.login.user;
 
 import com.example.desafio.dto.request.authentication.UserLoginDto;
 import com.example.desafio.dto.response.authentication.ResponseDtoTokens;

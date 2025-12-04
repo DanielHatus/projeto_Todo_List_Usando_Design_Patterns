@@ -1,19 +1,8 @@
-package com.example.desafio.model.project;
-
-import com.example.desafio.model.task.Task;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+package com.example.desafio.dto.response.crud.project;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Objects;
 
-@Entity
-@Table(name = "project")
-public class Project {
-    @Id
+public class ResponseProjectDataDto{
     private Long id;
     private String projectCreator;
     private String passwordAccess;
@@ -21,12 +10,6 @@ public class Project {
     private String description;
     private LocalDate startDate;
     private LocalDate endDate;
-
-
-
-    public Project(){
-        this.startDate=LocalDate.now();
-    }
 
     public Long getId() {
         return id;
@@ -82,16 +65,5 @@ public class Project {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Project project)) return false;
-        return Objects.equals(getId(), project.getId()) && Objects.equals(getProjectCreator(), project.getProjectCreator()) && Objects.equals(getPasswordAccess(), project.getPasswordAccess()) && Objects.equals(getNameProject(), project.getNameProject()) && Objects.equals(getDescription(), project.getDescription()) && Objects.equals(getStartDate(), project.getStartDate()) && Objects.equals(getEndDate(), project.getEndDate());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getProjectCreator(), getPasswordAccess(), getNameProject(), getDescription(), getStartDate(), getEndDate());
     }
 }
