@@ -15,10 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -51,6 +48,11 @@ class UserCrudControllerServiceTest {
      @Test
      void getUserByPageOrderSuccess(){
 
+         Integer page=0;
+         Integer size=1;
+         String order="id";
+         String direction="asc";
+
         User user1=new User();
         user1.setId(1L);
         user1.setEmail("teste@gmail.com");
@@ -68,7 +70,7 @@ class UserCrudControllerServiceTest {
         user2.setUsername("teste");
 
 
-        Pageable pageable=PageRequest.of(0,2);
+        Pageable pageable=PageRequest.of(page,size, Sort.by(order,direction));
         List<User> users=List.of(user1,user2);
         Page<User> pageUsers=new PageImpl<>(users,pageable,users.size());
 
@@ -98,10 +100,10 @@ class UserCrudControllerServiceTest {
         List<ResponseUserDataDto> usersDto=List.of(responseUserDataDto1,responseUserDataDto2);
         Page<ResponseUserDataDto> pageDto=new PageImpl<>(usersDto,pageable,usersDto.size());
 
-        when(pageableFactoryByClassReceived.pageableFactory(User.class,0,2,"id","asc")).thenReturn(pageable);
+        when(pageableFactoryByClassReceived.pageableFactory(User.class,page,size,order,direction)).thenReturn(pageable);
         when(mapperCore.toPageResponseUserDataDto(pageUsers)).thenReturn(pageDto);
 
-        Page<ResponseUserDataDto> result=this.userCrudService.getUserByPageOrder(0,2,"id","asc");
+        Page<ResponseUserDataDto> result=this.userCrudService.getUserByPageOrder(page,size,order,direction);
         assertEquals(pageDto.getSize(),result.getSize());
         verify(repository,times(1)).findAll(pageable);
     }

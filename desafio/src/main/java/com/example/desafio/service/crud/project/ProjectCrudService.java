@@ -54,7 +54,7 @@ public class ProjectCrudService{
     }
 
     @Transactional
-    public ResponseProjectDataDto UpdateProjectPut(Long id,ProjectPutDto projectPutDto){
+    public ResponseProjectDataDto updateProjectPut(Long id,ProjectPutDto projectPutDto){
       Project entity=getEntityByIdOrThrow(id);
 
       mapperCore.updateEntityPut(entity,projectPutDto);
