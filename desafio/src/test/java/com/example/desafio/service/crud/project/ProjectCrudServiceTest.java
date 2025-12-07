@@ -6,6 +6,7 @@ import com.example.desafio.exceptions.typo.runtime.notfound.NotFoundException;
 import com.example.desafio.mapper.project.ProjectMapperCore;
 import com.example.desafio.model.project.Project;
 import com.example.desafio.repository.project.ProjectRepository;
+import com.example.desafio.utils.encryptedpassword.EncryptedPassword;
 import com.example.desafio.utils.pageable.factory.PageableFactoryByClassReceived;
 import com.example.desafio.utils.parse.data.from.iso.american.ParseDataFromIsoAmerican;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,12 +38,15 @@ class ProjectCrudServiceTest {
     @Mock
     private ParseDataFromIsoAmerican fromIsoAmerican;
 
+    @Mock
+    private EncryptedPassword encryptedPassword;
+
     private ProjectCrudService projectCrudService;
 
     @BeforeEach
     void setUp(){
         MockitoAnnotations.openMocks(this);
-        this.projectCrudService=new ProjectCrudService(repository,mapperCore,pageableFactoryByClassReceived,fromIsoAmerican);
+        this.projectCrudService=new ProjectCrudService(repository,mapperCore,pageableFactoryByClassReceived,fromIsoAmerican,encryptedPassword);
     }
 
     @Test

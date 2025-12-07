@@ -6,6 +6,7 @@ import com.example.desafio.exceptions.typo.runtime.notfound.NotFoundException;
 import com.example.desafio.mapper.project.ProjectMapperCore;
 import com.example.desafio.model.project.Project;
 import com.example.desafio.repository.project.ProjectRepository;
+import com.example.desafio.utils.encryptedpassword.EncryptedPassword;
 import com.example.desafio.utils.pageable.factory.PageableFactoryByClassReceived;
 import com.example.desafio.utils.parse.data.from.iso.american.ParseDataFromIsoAmerican;
 import lombok.extern.slf4j.Slf4j;
@@ -23,17 +24,20 @@ public class ProjectCrudService{
     private final ProjectMapperCore mapperCore;
     private final PageableFactoryByClassReceived pageableFactoryByClassReceived;
     private final ParseDataFromIsoAmerican fromIsoAmerican;
+    private final EncryptedPassword encryptedPassword;
 
     public ProjectCrudService(
             ProjectRepository repository,
             ProjectMapperCore mapperCore,
             PageableFactoryByClassReceived pageableFactoryByClassReceived,
-            ParseDataFromIsoAmerican fromIsoAmerican) {
+            ParseDataFromIsoAmerican fromIsoAmerican,
+            EncryptedPassword encryptedPassword) {
 
         this.repository = repository;
         this.mapperCore = mapperCore;
         this.pageableFactoryByClassReceived = pageableFactoryByClassReceived;
         this.fromIsoAmerican=fromIsoAmerican;
+        this.encryptedPassword=encryptedPassword;
     }
 
     public Page<ResponseProjectDataDto> getProjectByPageOrder(Integer page,Integer size,String order,String direction){
@@ -60,10 +64,12 @@ public class ProjectCrudService{
       mapperCore.updateEntityPut(entity,projectPutDto);
       log.debug("✅ The project entity was successfully mapped using mapstruct.");
 
+      entity.setPasswordAccess(encryptedPassword.encrypted(projectPutDto.getPasswordAccess()));
+
       entity.setEndDate(fromIsoAmerican.parseDataFormatBrazilianImAmerican(projectPutDto.getEndDate()));
 
       repository.save(entity);
-      log.debug("The entity data update was successful. The DTO was returned to the response body.");
+      log.debug("✅ The entity data update was successful. The DTO was returned to the response body.");
       return mapperCore.toResponseProjectDataDto(entity);
     }
 

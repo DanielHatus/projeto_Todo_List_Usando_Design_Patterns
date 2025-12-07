@@ -13,7 +13,11 @@ import org.springframework.data.domain.Page;
 @Mapper(componentModel = "spring",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface ProjectMapperCore{
     @Mapping(target = "endDate",ignore = true)
+    @Mapping(target = "passwordAccess",ignore = true)
     Project toEntity(ProjectPostDto projectPostDto);
+
+    @Mapping(target = "endDate",ignore = true)
+    @Mapping(target = "passwordAccess",ignore = true)
     Project updateEntityPut(@MappingTarget Project entity, ProjectPutDto projectPutDto);
 
     ResponseProjectDataDto toResponseProjectDataDto(Project project);

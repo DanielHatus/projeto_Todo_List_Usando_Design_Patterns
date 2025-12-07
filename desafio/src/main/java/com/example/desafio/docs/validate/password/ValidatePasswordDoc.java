@@ -1,6 +1,6 @@
 package com.example.desafio.docs.validate.password;
 
-import com.example.desafio.dto.request.validation.password.ValidationPasswordTokenDto;
+import com.example.desafio.dto.request.validation.password.user.ValidationUserPasswordTokenDto;
 import com.example.desafio.dto.response.validation.password.ResponseValidationPassword;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -20,5 +20,5 @@ public interface ValidatePasswordDoc {
                             "(referencing the incorrect data) is incorrect (expired or already used).")
             }
     )
-    public ResponseEntity<ResponseValidationPassword> validateAndRenewPassword(ValidationPasswordTokenDto validationPasswordTokenDto);
+    public ResponseEntity<ResponseValidationPassword> validateAndRenewPassword(ValidationUserPasswordTokenDto validationUserPasswordTokenDto);
 }

@@ -1,6 +1,6 @@
 package com.example.desafio.docs.received.password;
 
-import com.example.desafio.dto.request.received.password.EmailUserRecoveryDto;
+import com.example.desafio.dto.request.received.password.user.EmailUserRecoveryDto;
 import com.example.desafio.dto.response.received.password.ResponseReceivedPassword;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

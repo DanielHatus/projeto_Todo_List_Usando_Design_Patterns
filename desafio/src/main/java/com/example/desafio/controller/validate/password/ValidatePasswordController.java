@@ -1,7 +1,7 @@
 package com.example.desafio.controller.validate.password;
 
 import com.example.desafio.docs.validate.password.ValidatePasswordDoc;
-import com.example.desafio.dto.request.validation.password.ValidationPasswordTokenDto;
+import com.example.desafio.dto.request.validation.password.user.ValidationUserPasswordTokenDto;
 import com.example.desafio.dto.response.validation.password.ResponseValidationPassword;
 import com.example.desafio.facade.validation.password.ValidationTokenAndRenewPasswordFacade;
 import jakarta.validation.Valid;
@@ -23,7 +23,7 @@ public class ValidatePasswordController implements ValidatePasswordDoc{
 
     @Override
     @PostMapping(value = "/validate",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseValidationPassword> validateAndRenewPassword(@RequestBody @Valid ValidationPasswordTokenDto validationPasswordTokenDto) {
-        return ResponseEntity.ok(validationTokenAndRenewPasswordFacade.execute(validationPasswordTokenDto));
+    public ResponseEntity<ResponseValidationPassword> validateAndRenewPassword(@RequestBody @Valid ValidationUserPasswordTokenDto validationUserPasswordTokenDto) {
+        return ResponseEntity.ok(validationTokenAndRenewPasswordFacade.execute(validationUserPasswordTokenDto));
     }
 }

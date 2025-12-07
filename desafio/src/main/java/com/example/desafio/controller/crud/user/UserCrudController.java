@@ -42,7 +42,7 @@ private final UserCrudService service;
 
     @Override
     @PutMapping(value = "/{id}",consumes =MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<ResponseUserDataDto> updateUserCompletedPut(@PathVariable("id") Long id, @RequestBody UserPutDto userPutDto) {
         return ResponseEntity.ok(service.updateUserPut(id,userPutDto));
     }
