@@ -5,12 +5,14 @@ import com.example.desafio.dto.request.crud.project.put.ProjectPutDto;
 import com.example.desafio.dto.response.crud.project.ResponseProjectDataDto;
 import com.example.desafio.model.project.Project;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.springframework.data.domain.Page;
 
 @Mapper(componentModel = "spring",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface ProjectMapperCore{
+    @Mapping(target = "endDate",ignore = true)
     Project toEntity(ProjectPostDto projectPostDto);
     Project updateEntityPut(@MappingTarget Project entity, ProjectPutDto projectPutDto);
 

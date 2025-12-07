@@ -45,8 +45,8 @@ public class SecurityConfiguration{
         return httpSecurity.csrf(csrf->csrf.disable())
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth->auth.requestMatchers(
-                                "/api/user/login",
-                                "/api/user/register",
+                                "/api/auth/login",
+                                "/api/auth/register",
                                 "/api/recover/password/**",
                                 "/swagger-ui/**",
                                 "/v3/api-docs",

@@ -50,14 +50,14 @@ public class ProjectCrudController implements ProjectCrudDoc{
 
     @Override
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseProjectDataDto> createNewProject(@Valid ProjectPostDto projectPostDto) {
+    public ResponseEntity<ResponseProjectDataDto> createNewProject(@RequestBody @Valid ProjectPostDto projectPostDto) {
         ResponseProjectDataDto entityDto=registerNewProjectFacade.execute(projectPostDto);
         return ResponseEntity.created(generateUri.build(entityDto.getId())).body(entityDto);
     }
 
     @Override
     @PutMapping(value = "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseProjectDataDto> updateProject(@PathVariable Long id, @Valid ProjectPutDto projectPutDto) {
+    public ResponseEntity<ResponseProjectDataDto> updateProject(@PathVariable Long id, @RequestBody @Valid ProjectPutDto projectPutDto) {
         return ResponseEntity.ok(projectCrudService.updateProjectPut(id,projectPutDto));
     }
 

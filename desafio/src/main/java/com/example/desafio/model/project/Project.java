@@ -1,19 +1,16 @@
 package com.example.desafio.model.project;
 
-import com.example.desafio.model.task.Task;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "project")
+@Table(name = "projects")
 public class Project {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String projectCreator;
     private String passwordAccess;
