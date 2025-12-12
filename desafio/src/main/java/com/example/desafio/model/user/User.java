@@ -28,7 +28,7 @@ public class User {
 
     public User(){
         this.enabled=true;
-        this.role=Role.USER;
+        this.role=Role.ROLE_USER;
         this.dateRegister=LocalDate.now();
         this.lastUpdate=LocalDate.now();
     }
@@ -54,7 +54,7 @@ public class User {
         this.role=role;
     }
 
-    public boolean isEnabled() {
+    public boolean getEnabled() {
         return enabled;
     }
 
@@ -110,15 +110,4 @@ public class User {
         return lastUpdate;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof User user)) return false;
-        return isEnabled() == user.isEnabled() && Objects.equals(getId(), user.getId()) && Objects.equals(getFirstName(), user.getFirstName()) && Objects.equals(getLastName(), user.getLastName()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getPassword(), user.getPassword()) && getRole() == user.getRole() && Objects.equals(getDateRegister(), user.getDateRegister()) && Objects.equals(getLastUpdate(), user.getLastUpdate());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getLastName(), getEmail(), getUsername(), getPassword(), getRole(), isEnabled(), getDateRegister(), getLastUpdate());
-    }
 }

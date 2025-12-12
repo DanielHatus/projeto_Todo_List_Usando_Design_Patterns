@@ -4,5 +4,5 @@ import com.example.desafio.model.register.password.project.RegisterPasswordProje
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RegisterProjectPasswordRepository extends JpaRepository<RegisterPasswordProject,Long>{
-    boolean existsTokenInRegisterProject(String token);
+    boolean existsByToken(String token);
 }

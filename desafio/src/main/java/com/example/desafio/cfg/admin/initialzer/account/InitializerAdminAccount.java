@@ -23,12 +23,12 @@ public class InitializerAdminAccount{
     @Bean
     public CommandLineRunner register(){
         return args -> {
-            boolean existsEntity=repository.existsByUsername("admin");
+            boolean existsEntity=repository.existsByUsername("admin teste");
             if (!existsEntity){
                 log.debug("✅ admin account created successfully.");
                 User user=new User();
                 user.setPassword(encryptedPassword.encrypted("admin123"));
-                user.setRole(Role.ADMIN);
+                user.setRole(Role.ROLE_ADMIN);
                 user.setEmail("admin@gmail.com");
                 user.setUsername("admin");
                 user.setFirstName("admin");

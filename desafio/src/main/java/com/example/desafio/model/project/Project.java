@@ -3,7 +3,6 @@ package com.example.desafio.model.project;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
 
 @Entity

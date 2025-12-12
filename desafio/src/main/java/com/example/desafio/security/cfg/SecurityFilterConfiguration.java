@@ -5,6 +5,7 @@ import com.example.desafio.security.filter.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
+import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,12 +19,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = true)
-public class SecurityConfiguration{
+public class SecurityFilterConfiguration {
     private final JwtFilter jwtFilter;
     private final AuthenticationExceptionEntry exceptionEntry;
 
-    public SecurityConfiguration(JwtFilter jwtFilter, AuthenticationExceptionEntry exceptionEntry) {
+    public SecurityFilterConfiguration(JwtFilter jwtFilter, AuthenticationExceptionEntry exceptionEntry) {
         this.jwtFilter = jwtFilter;
         this.exceptionEntry = exceptionEntry;
     }
@@ -31,13 +31,6 @@ public class SecurityConfiguration{
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
-    }
-
-    @Bean
-    public RoleHierarchy roleHierarchy(){
-        RoleHierarchyImpl roleHierarchyImpl=new RoleHierarchyImpl();
-        roleHierarchyImpl.setHierarchy("ROLE_ADMIN>ROLE_USER");
-        return roleHierarchyImpl;
     }
 
     @Bean
@@ -61,12 +54,5 @@ public class SecurityConfiguration{
                         .anyRequest().authenticated())
                 .exceptionHandling(exception->exception.authenticationEntryPoint(exceptionEntry))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class).build();
-    }
-
-    @Bean
-    public DefaultMethodSecurityExpressionHandler expressionHandler(RoleHierarchy roleHierarchy){
-        DefaultMethodSecurityExpressionHandler methodSecurityExpressionHandler=new DefaultMethodSecurityExpressionHandler();
-        methodSecurityExpressionHandler.setRoleHierarchy(roleHierarchy);
-        return methodSecurityExpressionHandler;
     }
 }

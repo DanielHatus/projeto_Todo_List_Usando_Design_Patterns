@@ -25,7 +25,6 @@ public class ReceivedPasswordProjectController{
     @PostMapping(value = "/project",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseReceivedPassword> sendEmailAndSaveRegisterTokenPasswordProject(
           @RequestBody IdProjectTokenPasswordRecoveryDto idProjectTokenPasswordRecoveryDto) throws MessagingException {
-
           return ResponseEntity.ok(sendGmailAndSaveProjectRegisterDataFacade.execute(idProjectTokenPasswordRecoveryDto));
     }
 }

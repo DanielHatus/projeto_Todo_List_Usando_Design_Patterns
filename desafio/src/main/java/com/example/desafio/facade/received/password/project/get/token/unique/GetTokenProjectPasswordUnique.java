@@ -19,7 +19,7 @@ public class GetTokenProjectPasswordUnique{
 
     public String getTokenProjectUnique(){
         String tokenNineElementsGenerated=tokenPasswordRecovery.getNineNumberGenerated();
-        while (repository.existsTokenInRegisterProject(tokenNineElementsGenerated)){
+        while (repository.existsByToken(tokenNineElementsGenerated)){
             tokenNineElementsGenerated=tokenPasswordRecovery.getNineNumberGenerated();
         }
         return tokenNineElementsGenerated;

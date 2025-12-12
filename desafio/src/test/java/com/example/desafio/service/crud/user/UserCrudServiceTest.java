@@ -1,17 +1,19 @@
 package com.example.desafio.service.crud.user;
 
 import com.example.desafio.dto.request.crud.user.patch.UserPatchDto;
-import com.example.desafio.dto.request.crud.user.put.UserPutDto;
+import com.example.desafio.dto.request.crud.user.put.complete.UserPutDtoDataComplete;
+import com.example.desafio.dto.request.crud.user.put.simple.UserPutDtoDataSimple;
 import com.example.desafio.dto.response.crud.user.ResponseUserDataDto;
 import com.example.desafio.enums.Role;
 import com.example.desafio.exceptions.typo.runtime.notfound.NotFoundException;
 import com.example.desafio.mapper.user.UserMapperCore;
 import com.example.desafio.model.user.User;
 import com.example.desafio.repository.user.UserRepository;
-import com.example.desafio.utils.encryptedpassword.EncryptedPassword;
+import com.example.desafio.service.crud.user.validation.put.ValidationIfUserEffectPutThemSelves;
 import com.example.desafio.utils.pageable.factory.PageableFactoryByClassReceived;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -23,7 +25,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class UserCrudControllerServiceTest {
+class UserCrudServiceTest {
 
     @Mock
     private UserRepository repository;
@@ -32,17 +34,17 @@ class UserCrudControllerServiceTest {
     private UserMapperCore mapperCore;
 
     @Mock
-    private  EncryptedPassword encryptedPassword;
-
-    @Mock
     private PageableFactoryByClassReceived pageableFactoryByClassReceived;
 
+    @Mock
+    ValidationIfUserEffectPutThemSelves validationIfUserEffectPutThemSelves;
+
+    @InjectMocks
     private UserCrudService userCrudService;
 
      @BeforeEach
      void startUp(){
          MockitoAnnotations.openMocks(this);
-         this.userCrudService=new UserCrudService(repository,mapperCore,encryptedPassword,pageableFactoryByClassReceived);
      }
 
      @Test
@@ -78,7 +80,7 @@ class UserCrudControllerServiceTest {
 
         ResponseUserDataDto responseUserDataDto1=new ResponseUserDataDto();
         responseUserDataDto1.setEmail(user1.getEmail());
-        responseUserDataDto1.setEnabled(user1.isEnabled());
+        responseUserDataDto1.setEnabled(user1.getEnabled());
         responseUserDataDto1.setRole(user1.getRole());
         responseUserDataDto1.setUsername(user1.getUsername());
         responseUserDataDto1.setFirstName(user1.getFirstName());
@@ -89,7 +91,7 @@ class UserCrudControllerServiceTest {
 
         ResponseUserDataDto responseUserDataDto2=new ResponseUserDataDto();
         responseUserDataDto2.setEmail(user2.getEmail());
-        responseUserDataDto2.setEnabled(user2.isEnabled());
+        responseUserDataDto2.setEnabled(user2.getEnabled());
         responseUserDataDto2.setRole(user2.getRole());
         responseUserDataDto2.setUsername(user2.getUsername());
         responseUserDataDto2.setFirstName(user2.getFirstName());
@@ -121,7 +123,7 @@ class UserCrudControllerServiceTest {
 
         ResponseUserDataDto responseUserDataDto=new ResponseUserDataDto();
         responseUserDataDto.setEmail(user.getEmail());
-        responseUserDataDto.setEnabled(user.isEnabled());
+        responseUserDataDto.setEnabled(user.getEnabled());
         responseUserDataDto.setRole(user.getRole());
         responseUserDataDto.setUsername(user.getUsername());
         responseUserDataDto.setFirstName(user.getFirstName());
@@ -160,17 +162,14 @@ class UserCrudControllerServiceTest {
     }
 
      @Test
-     void updateUserPutSuccess() {
+     void updateUserPutDataSimpleSuccess() {
         Long idRequest = 1L;
 
-        UserPutDto userPutDto = new UserPutDto();
-        userPutDto.setEmail("newEmail@gmail.com");
-        userPutDto.setEnabled(true);
-        userPutDto.setPassword("newPassword");
-        userPutDto.setRole(Role.USER);
-        userPutDto.setUsername("newUsername");
-        userPutDto.setFirstName("newFirstName");
-        userPutDto.setLastName("newLastName");
+        UserPutDtoDataSimple userPutDtoDataSimple = new UserPutDtoDataSimple();
+
+        userPutDtoDataSimple.setUsername("newUsername");
+        userPutDtoDataSimple.setFirstName("newFirstName");
+        userPutDtoDataSimple.setLastName("newLastName");
 
         User entityOrigin = new User();
         entityOrigin.setId(1L);
@@ -181,60 +180,34 @@ class UserCrudControllerServiceTest {
         entityOrigin.setUsername("teste");
 
         when(repository.findById(idRequest)).thenReturn(Optional.of(entityOrigin));
-        when(encryptedPassword.encrypted(userPutDto.getPassword()))
-                .thenReturn("passwordEncoded");
+
+        doNothing().when(validationIfUserEffectPutThemSelves).validate(any(String.class));
 
         doAnswer(invocation -> {
             User entityArgument = invocation.getArgument(0);
-            UserPutDto dtoArgument = invocation.getArgument(1);
+            UserPutDtoDataSimple dtoArgument = invocation.getArgument(1);
 
-            entityArgument.setEmail(dtoArgument.getEmail());
-            entityArgument.setRole(dtoArgument.getRole());
-            entityArgument.setPassword("passwordEncoded");
             entityArgument.setUsername(dtoArgument.getUsername());
             entityArgument.setFirstName(dtoArgument.getFirstName());
             entityArgument.setLastName(dtoArgument.getLastName());
-            entityArgument.setEnabled(dtoArgument.isEnabled());
 
             return null;
-        }).when(mapperCore).updateUserPut(any(User.class), any(UserPutDto.class));
+        }).when(mapperCore).updateUserPutSimple(any(User.class), any(UserPutDtoDataSimple.class));
 
-        when(repository.save(any(User.class))).thenAnswer(i -> i.getArgument(0));
+        this.userCrudService.updateUserDataSimple(idRequest,userPutDtoDataSimple);
 
-        when(mapperCore.toResponseUserDataDto(any(User.class))).thenAnswer(invocation -> {
-            User e = invocation.getArgument(0);
-
-            ResponseUserDataDto dto = new ResponseUserDataDto();
-            dto.setEmail(e.getEmail());
-            dto.setFirstName(e.getFirstName());
-            dto.setLastName(e.getLastName());
-            dto.setRole(e.getRole());
-            dto.setUsername(e.getUsername());
-            dto.setEnabled(e.isEnabled());
-            dto.setDateRegister(e.getDateRegister());
-            dto.setLastUpdate(e.getLastUpdate());
-
-            return dto;
-        });
-
-        ResponseUserDataDto result = this.userCrudService.updateUserPut(idRequest, userPutDto);
-
-        assertEquals(userPutDto.getEmail(), result.getEmail());
-        assertEquals(result.getRole(),userPutDto.getRole());
+        verify(repository,times(1)).save(any(User.class));
     }
 
      @Test
-     void updateUserPutFailedPerIdNotFoundInDb(){
+     void updateUserPutDataSimpleFailedPerIdNotFoundInDb(){
         Long idRequest=1L;
 
-        UserPutDto userPutDto = new UserPutDto();
-        userPutDto.setEmail("newEmail@gmail.com");
-        userPutDto.setEnabled(true);
-        userPutDto.setPassword("newPassword");
-        userPutDto.setRole(Role.USER);
-        userPutDto.setUsername("newUsername");
-        userPutDto.setFirstName("newFirstName");
-        userPutDto.setLastName("newLastName");
+        UserPutDtoDataSimple userPutDtoDataSimple = new UserPutDtoDataSimple();
+
+        userPutDtoDataSimple.setUsername("newUsername");
+        userPutDtoDataSimple.setFirstName("newFirstName");
+        userPutDtoDataSimple.setLastName("newLastName");
 
         User entityOrigin = new User();
         entityOrigin.setId(2L);
@@ -246,10 +219,68 @@ class UserCrudControllerServiceTest {
 
         when(repository.findById(idRequest)).thenThrow(new NotFoundException("id not found in database"));
 
-        assertThrows(NotFoundException.class,()-> this.userCrudService.updateUserPut(idRequest,userPutDto));
-        verify(repository,times(1)).findById(idRequest);
+        assertThrows(NotFoundException.class,()-> this.userCrudService.updateUserDataSimple(idRequest, userPutDtoDataSimple));
+        verify(repository,times(1)).findById(any(Long.class));
 
     }
+
+     @Test
+     void updateUserPutDataCompleteSuccess(){
+         Long idRequest=1L;
+
+         UserPutDtoDataComplete dtoDataComplete=new UserPutDtoDataComplete();
+         dtoDataComplete.setFirstName("firstName");
+         dtoDataComplete.setLastName("lastName");
+         dtoDataComplete.setUsername("username");
+         dtoDataComplete.setRole(Role.ROLE_USER);
+         dtoDataComplete.setEnabled(true);
+
+         User entity=new User();
+         entity.setId(1L);
+         entity.setEmail("teste@gmail.com");
+         entity.setPassword("testeDecoded");
+         entity.setFirstName("teste");
+         entity.setLastName("teste");
+         entity.setUsername("teste");
+
+         when(repository.findById(idRequest)).thenReturn(Optional.of(entity));
+
+         doAnswer(invocation->{
+             User entityOrigin=invocation.getArgument(0);
+             UserPutDtoDataComplete dto=invocation.getArgument(1);
+             entityOrigin.setUsername(dto.getUsername());
+             entityOrigin.setFirstName(dto.getFirstName());
+             entityOrigin.setLastName(dto.getLastName());
+             entityOrigin.setRole(dto.getRole());
+             entityOrigin.setEnabled(dto.getEnabled());
+             return null;
+         }).when(mapperCore).updateUserPutComplete(any(User.class),any(UserPutDtoDataComplete.class));
+
+
+        doAnswer(invocation->{
+            User entityPassed=invocation.getArgument(0);
+            return entityPassed;
+        }).when(repository).save(any(User.class));
+
+        doAnswer(invocation->{
+            User entityParam=invocation.getArgument(0);
+            ResponseUserDataDto responseUserDataDto=new ResponseUserDataDto();
+            responseUserDataDto.setFirstName(entityParam.getFirstName());
+            responseUserDataDto.setLastName(entityParam.getLastName());
+            responseUserDataDto.setUsername(entityParam.getUsername());
+            responseUserDataDto.setEmail(entityParam.getEmail());
+            responseUserDataDto.setRole(entityParam.getRole());
+            responseUserDataDto.setDateRegister(entityParam.getDateRegister());
+            responseUserDataDto.setEnabled(entityParam.getEnabled());
+            responseUserDataDto.setLastUpdate(entityParam.getLastUpdate());
+            return responseUserDataDto;
+        }).when(mapperCore).toResponseUserDataDto(any(User.class));
+
+        ResponseUserDataDto result=this.userCrudService.updateUserDataComplete(idRequest,dtoDataComplete);
+        verify(repository,times(1)).save(any(User.class));
+        assertEquals(dtoDataComplete.getUsername(),result.getUsername());
+        assertEquals(dtoDataComplete.getRole(),result.getRole());
+     }
 
      @Test
      void updateUserPatchSuccess() {
@@ -286,7 +317,7 @@ class UserCrudControllerServiceTest {
             dto.setLastName(entityInvocated.getLastName());
             dto.setRole(entityInvocated.getRole());
             dto.setUsername(entityInvocated.getUsername());
-            dto.setEnabled(entityInvocated.isEnabled());
+            dto.setEnabled(entityInvocated.getEnabled());
             dto.setDateRegister(entityInvocated.getDateRegister());
             dto.setLastUpdate(entityInvocated.getLastUpdate());
 

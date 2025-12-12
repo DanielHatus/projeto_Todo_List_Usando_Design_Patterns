@@ -1,6 +1,6 @@
 package com.example.desafio.utils.parse.data.from.iso.american;
 
-import com.example.desafio.exceptions.typo.runtime.DateParseException;
+import com.example.desafio.exceptions.typo.runtime.dateparse.DateParseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

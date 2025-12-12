@@ -1,12 +1,14 @@
 package com.example.desafio.service.crud.user;
 
 import com.example.desafio.dto.request.crud.user.patch.UserPatchDto;
-import com.example.desafio.dto.request.crud.user.put.UserPutDto;
+import com.example.desafio.dto.request.crud.user.put.complete.UserPutDtoDataComplete;
+import com.example.desafio.dto.request.crud.user.put.simple.UserPutDtoDataSimple;
 import com.example.desafio.dto.response.crud.user.ResponseUserDataDto;
 import com.example.desafio.exceptions.typo.runtime.notfound.NotFoundException;
 import com.example.desafio.mapper.user.UserMapperCore;
 import com.example.desafio.model.user.User;
 import com.example.desafio.repository.user.UserRepository;
+import com.example.desafio.service.crud.user.validation.put.ValidationIfUserEffectPutThemSelves;
 import com.example.desafio.utils.encryptedpassword.EncryptedPassword;
 import com.example.desafio.utils.pageable.factory.PageableFactoryByClassReceived;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,7 @@ public class UserCrudService{
     private  final UserMapperCore mapperCore;
     private final EncryptedPassword encryptedPassword;
     private final PageableFactoryByClassReceived pageableFactoryByClassReceived;
+    private final ValidationIfUserEffectPutThemSelves validationIfUserEffectPutThemSelves;
 
 
 
@@ -31,13 +34,14 @@ public class UserCrudService{
             UserRepository repository,
             UserMapperCore mapperCore,
             EncryptedPassword encryptedPassword,
-            PageableFactoryByClassReceived pageableFactoryByClassReceived
-           ) {
+            PageableFactoryByClassReceived pageableFactoryByClassReceived,
+            ValidationIfUserEffectPutThemSelves validationIfUserEffectPutThemSelves) {
 
-        this.repository = repository;
-        this.mapperCore = mapperCore;
-        this.encryptedPassword = encryptedPassword;
-       this.pageableFactoryByClassReceived=pageableFactoryByClassReceived;
+            this.repository = repository;
+            this.mapperCore = mapperCore;
+            this.encryptedPassword = encryptedPassword;
+            this.pageableFactoryByClassReceived=pageableFactoryByClassReceived;
+            this.validationIfUserEffectPutThemSelves=validationIfUserEffectPutThemSelves;
     }
 
     public Page<ResponseUserDataDto> getUserByPageOrder(Integer page,Integer size,String order,String direction){
@@ -54,16 +58,28 @@ public class UserCrudService{
     }
 
     @Transactional
-    public ResponseUserDataDto updateUserPut(Long id, UserPutDto userPutDto){
+    public void updateUserDataSimple(Long id, UserPutDtoDataSimple userPutDtoDataSimple){
       User entity=getEntityByIdOrThrow(id);
 
-      mapperCore.updateUserPut(entity,userPutDto);
-      log.debug("✅ The data from the PUT request was successfully inserted into the entity.");
+      validationIfUserEffectPutThemSelves.validate(entity.getUsername());
 
-      entity.setPassword(encryptedPassword.encrypted(entity.getPassword()));
+      mapperCore.updateUserPutSimple(entity, userPutDtoDataSimple);
+      log.debug("✅ The data from the PUT simple request was successfully inserted into the entity.");
 
-      log.debug("✅ The updated user was saved on the server and returned as a successful Dto.");
-      return mapperCore.toResponseUserDataDto(repository.save(entity));
+      log.debug("✅ The updated user data was saved successfully in server.");
+      repository.save(entity);
+    }
+
+    @Transactional
+    public ResponseUserDataDto updateUserDataComplete(Long id, UserPutDtoDataComplete userPutDtoDataComplete){
+        User entity=getEntityByIdOrThrow(id);
+
+        mapperCore.updateUserPutComplete(entity, userPutDtoDataComplete);
+        log.debug("✅ The data from the PUT complete request was successfully inserted into the entity.");
+
+
+        log.debug("✅ The data passed in the request was successfully updated in the entity, returning the response data.");
+        return mapperCore.toResponseUserDataDto(repository.save(entity));
     }
 
     @Transactional

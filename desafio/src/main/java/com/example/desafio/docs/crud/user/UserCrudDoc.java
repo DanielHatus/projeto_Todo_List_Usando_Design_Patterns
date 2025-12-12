@@ -1,7 +1,8 @@
 package com.example.desafio.docs.crud.user;
 
 import com.example.desafio.dto.request.crud.user.patch.UserPatchDto;
-import com.example.desafio.dto.request.crud.user.put.UserPutDto;
+import com.example.desafio.dto.request.crud.user.put.complete.UserPutDtoDataComplete;
+import com.example.desafio.dto.request.crud.user.put.simple.UserPutDtoDataSimple;
 import com.example.desafio.dto.response.crud.user.ResponseUserDataDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -35,23 +36,40 @@ public interface UserCrudDoc {
     public ResponseEntity<ResponseUserDataDto> getUserById(Long id);
 
 
-    @Operation(summary = "The user will enter all their data: first name, last name, username, and email. " +
+    @Operation(summary = "The user must enter the following information: first name, last name, and username. " +
             "If this data is correct (provided there are no null or empty values, and it is within the character limits), " +
             "it will replace the user's current data.",
-    description = "The user will pass all the user's data: first name, last name, username, and email. " +
-            "If this data is correct (if there are no null or empty values, and it is within the character delimiter), " +
-            "it will replace the user's current data. A reminder is that the user must pass the ID of the database " +
-            "containing the data they want to replace as a path variable. If the passed ID does not exist, " +
-            "a 404 not found exception will be returned.",
+    description = "The user must provide all their data: first name, last name,username,role and enabled. If this data is correct " +
+            "(no null or empty values \u200B\u200Band within the character delimiter), the user's current data will be replaced. " +
+            "Remember that the user must provide the ID of the database containing the data they wish to replace as a path variable. " +
+            "If the provided ID does not exist, a 404 (not found) exception will be returned. And if the user attempts " +
+            "to update data belonging to another user other than themselves, they will receive a 403 forbidden error.",
+    responses = {
+            @ApiResponse(responseCode = "204",description = "no content"),
+            @ApiResponse(responseCode = "404",description = "The user with the passed ID was not found on the server."),
+            @ApiResponse(responseCode = "400",description = "The data (or representation of the data passed incorrectly in the request) " +
+                    "was passed incorrectly in the request."),
+            @ApiResponse(responseCode = "403",description = "If the user attempts to update another user's data that is not their own account data.")
+    })
+    public ResponseEntity<Void> updateUserDataSimple(Long id, UserPutDtoDataSimple userPutDtoDataSimple);
+
+
+    @Operation(summary = "The client must enter the following information: first name, last name, username, role, " +
+            "and whether the account is enabled or not.",
+    description = "The user must enter the following information: first name, last name, and username. \" +\n" +
+            "            \"If this data is correct (provided there are no null or empty values, and it is within the character limits), \" +\n" +
+            "            \"it will replace the user's current data.\",\n" +
+            "    description = \"The user must provide all their data: first name, last name,username,role and enabled. If this data is correct \" +\n" +
+            "            \"(no null or empty values \\u200B\\u200Band within the character delimiter), the user's current data will be replaced. \" +\n" +
+            "            \"Remember that the user must provide the ID of the database containing the data they wish to replace as a path variable. \" +\n" +
+            "            \"If the provided ID does not exist, a 404 (not found) exception will be returned.",
     responses = {
             @ApiResponse(responseCode = "200",description = "All user data, including data updated by the user, except for the password."),
             @ApiResponse(responseCode = "404",description = "The user with the passed ID was not found on the server."),
             @ApiResponse(responseCode = "400",description = "The data (or representation of the data passed incorrectly in the request) " +
                     "was passed incorrectly in the request.")
-
-
     })
-    public ResponseEntity<ResponseUserDataDto> updateUserCompletedPut(Long id, UserPutDto userPutDto);
+    public ResponseEntity<ResponseUserDataDto> updateUserDataComplete(Long id, UserPutDtoDataComplete userPutDtoDataComplete);
 
 
 
@@ -62,7 +80,7 @@ public interface UserCrudDoc {
             @ApiResponse(responseCode = "404",description = "The user with the passed ID was not found on the server."),
             @ApiResponse(responseCode = "400",description = "The data (or representation of the data passed incorrectly in the request)")
     })
-    public ResponseEntity<ResponseUserDataDto> updateUserPartial(Long id, UserPatchDto userPatchDto);
+    public ResponseEntity<ResponseUserDataDto> updateUserDataPatch(Long id, UserPatchDto userPatchDto);
 
 
 
