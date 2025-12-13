@@ -1,8 +1,8 @@
 package com.example.desafio.security.filter;
 
 import com.example.desafio.exceptions.typo.security.filter.response.AuthenticationExceptionEntry;
-import com.example.desafio.exceptions.typo.security.filter.typo.token.invalid.TokenInvalid;
-import com.example.desafio.exceptions.typo.security.filter.typo.token.notfound.TokenNotFound;
+import com.example.desafio.exceptions.typo.security.filter.typo.token.invalid.TokenInvalidException;
+import com.example.desafio.exceptions.typo.security.filter.typo.token.notfound.TokenNotFoundException;
 import com.example.desafio.security.token.get.email.GetEmailByPayload;
 import com.example.desafio.security.token.validation.token.TokenIsValid;
 import com.example.desafio.service.authentication.implementations.CustomUserDetailsService;
@@ -66,7 +66,7 @@ public class JwtFilter extends OncePerRequestFilter{
                 log.error("❌ No header or tokens were found in the request. Therefore, " +
                         "the requesting client is not authorized to use the current endpoint.");
 
-                throw new TokenNotFound("header or token not found. insert the token in header Authroization,using Bearer <space> token");
+                throw new TokenNotFoundException("header or token not found. insert the token in header Authroization,using Bearer <space> token");
             }
             log.debug("✅ The header and tokens were successfully found.");
 
@@ -74,9 +74,8 @@ public class JwtFilter extends OncePerRequestFilter{
             if (!tokenIsValid.execute(token)){
                 log.error(" ❌The token passed in the request is invalid. Either the token was passed incorrectly or it has been altered.");
 
-                throw new TokenInvalid("Invalid token. Please log in again and enter a new token in the header.");
+                throw new TokenInvalidException("Invalid token. Please log in again and enter a new token in the header.");
             }
-            log.debug("✅ The token was successfully validated.");
 
             saveUserInContextSecurity(token);
 

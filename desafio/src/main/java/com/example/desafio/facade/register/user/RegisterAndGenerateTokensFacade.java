@@ -5,7 +5,7 @@ import com.example.desafio.dto.response.authentication.ResponseDtoTokens;
 import com.example.desafio.model.user.User;
 import com.example.desafio.service.authentication.register.token.GenerateTokensRegisterService;
 import com.example.desafio.service.authentication.register.user.UserRegisterService;
-import com.example.desafio.service.authentication.validation.EmailAndUsernameIsUnique;
+import com.example.desafio.service.authentication.register.validation.EmailAndUsernameIsUnique;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

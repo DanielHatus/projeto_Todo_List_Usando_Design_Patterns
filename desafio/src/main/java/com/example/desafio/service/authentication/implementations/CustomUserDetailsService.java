@@ -1,5 +1,6 @@
 package com.example.desafio.service.authentication.implementations;
 
+import com.example.desafio.exceptions.typo.security.filter.typo.enabled.AccountIsDisabledException;
 import com.example.desafio.model.user.User;
 import com.example.desafio.repository.user.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
        User entity=validationExistsEmailAndRetunedEntityOrThrow(email);
+       validationIfAccountIsActiveAndThrowIfAccountIsDisable(entity.getEnabled());
        return new CustomUserDetails(entity);
     }
 
@@ -36,6 +38,10 @@ public class CustomUserDetailsService implements UserDetailsService{
         throw new UsernameNotFoundException("email not found in database");
     }
 
-
+    private void validationIfAccountIsActiveAndThrowIfAccountIsDisable(boolean enabledEntityStateless){
+        if(!enabledEntityStateless){
+            throw new AccountIsDisabledException("We were unable to log in because your account was banned by an administrator.");
+        }
+    }
 
 }

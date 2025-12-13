@@ -1,4 +1,4 @@
-package com.example.desafio.service.authentication.validation;
+package com.example.desafio.service.authentication.register.validation;
 
 import com.example.desafio.exceptions.typo.runtime.badrequest.BadRequestException;
 import com.example.desafio.repository.user.UserRepository;

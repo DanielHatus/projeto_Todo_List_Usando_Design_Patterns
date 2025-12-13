@@ -55,7 +55,7 @@ private final UserCrudService service;
     @Override
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping(value = "/complete/{id}",consumes =MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseUserDataDto> updateUserDataComplete(@PathVariable("id") Long id, @Valid UserPutDtoDataComplete userPutDtoDataComplete){
+    public ResponseEntity<ResponseUserDataDto> updateUserDataComplete(@PathVariable("id") Long id, @Valid @RequestBody UserPutDtoDataComplete userPutDtoDataComplete){
         return ResponseEntity.ok(this.service.updateUserDataComplete(id,userPutDtoDataComplete));
     }
 
