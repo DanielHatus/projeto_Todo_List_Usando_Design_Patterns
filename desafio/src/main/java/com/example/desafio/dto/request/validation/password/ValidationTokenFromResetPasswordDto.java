@@ -1,8 +1,8 @@
-package com.example.desafio.dto.request.validation.password.user;
+package com.example.desafio.dto.request.validation.password;
 
 import jakarta.validation.constraints.Size;
 
-public class ValidationUserPasswordTokenDto {
+public class ValidationTokenFromResetPasswordDto {
     private String token;
 
     @Size(min=4,max=20,message = "The password must contain at least 4 characters, " +

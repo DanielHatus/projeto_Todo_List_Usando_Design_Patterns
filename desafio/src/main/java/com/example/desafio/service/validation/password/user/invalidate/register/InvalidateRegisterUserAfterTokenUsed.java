@@ -7,16 +7,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class InvalidateRegisterAfterUseToken {
+public class InvalidateRegisterUserAfterTokenUsed {
     private final RegisterUserPasswordRepository repository;
 
-    public InvalidateRegisterAfterUseToken(RegisterUserPasswordRepository repository) {
+    public InvalidateRegisterUserAfterTokenUsed(RegisterUserPasswordRepository repository) {
         this.repository = repository;
     }
 
     public void execute(RegisterPasswordUser registerPasswordUser){
         registerPasswordUser.setUsed(true);
         repository.save(registerPasswordUser);
-        log.info("✅ After the token was used, the data True was inserted into the table, and from now on the token used is invalidated.");
+        log.debug("✅ After the token was used, the data True was inserted into the table, and from now on the token used is invalidated.");
     }
 }

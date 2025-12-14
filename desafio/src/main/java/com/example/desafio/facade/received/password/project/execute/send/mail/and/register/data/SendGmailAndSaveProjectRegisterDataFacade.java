@@ -64,6 +64,6 @@ public class SendGmailAndSaveProjectRegisterDataFacade {
         log.debug("✅ The entire process related to receiving the email with the token was successfully completed, " +
                 "returning the response data to the client.");
 
-        return new ResponseReceivedPassword("The file was successfully sent to the project creator's email address.");
+        return new ResponseReceivedPassword("The token password was successfully sent to the project creator's email address.");
     }
 }

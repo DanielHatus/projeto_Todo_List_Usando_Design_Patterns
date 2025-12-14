@@ -18,8 +18,6 @@ public class Project {
     private LocalDate startDate;
     private LocalDate endDate;
 
-
-
     public Project(){
         this.startDate=LocalDate.now();
     }
