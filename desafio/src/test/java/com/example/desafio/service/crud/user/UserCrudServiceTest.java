@@ -9,8 +9,9 @@ import com.example.desafio.exceptions.typo.runtime.notfound.NotFoundException;
 import com.example.desafio.mapper.user.UserMapperCore;
 import com.example.desafio.model.user.User;
 import com.example.desafio.repository.user.UserRepository;
-import com.example.desafio.service.crud.user.validation.put.ValidationIfUserEffectPutThemSelves;
+import com.example.desafio.utils.get.username.by.context.security.GetUsernameByContextHolder;
 import com.example.desafio.utils.pageable.factory.PageableFactoryByClassReceived;
+import com.example.desafio.utils.validation.user.put.them.selves.ValidationIfUserEffectPutThemSelves;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -38,6 +39,9 @@ class UserCrudServiceTest {
 
     @Mock
     ValidationIfUserEffectPutThemSelves validationIfUserEffectPutThemSelves;
+
+    @Mock
+    GetUsernameByContextHolder getUsernameByContextHolder;
 
     @InjectMocks
     private UserCrudService userCrudService;
@@ -164,6 +168,7 @@ class UserCrudServiceTest {
      @Test
      void updateUserPutDataSimpleSuccess() {
         Long idRequest = 1L;
+        String usernameRequest="usernameRequest";
 
         UserPutDtoDataSimple userPutDtoDataSimple = new UserPutDtoDataSimple();
 
@@ -181,7 +186,10 @@ class UserCrudServiceTest {
 
         when(repository.findById(idRequest)).thenReturn(Optional.of(entityOrigin));
 
-        doNothing().when(validationIfUserEffectPutThemSelves).validate(any(String.class));
+
+        when(getUsernameByContextHolder.execute()).thenReturn(usernameRequest);
+
+        doNothing().when(validationIfUserEffectPutThemSelves).throwIfUserRequestIsDifferentEntityUser(any(String.class),any(String.class));
 
         doAnswer(invocation -> {
             User entityArgument = invocation.getArgument(0);

@@ -40,7 +40,8 @@ public class SecurityFilterConfiguration {
                 .authorizeHttpRequests(auth->auth.requestMatchers(
                                 "/api/auth/login",
                                 "/api/auth/register",
-                                "/api/user/recover/password",
+                                "/api/user/received/token/reset/password",
+                                "/api/user/validate/token/reset/password",
                                 "/swagger-ui/**",
                                 "/v3/api-docs",
                                 "/v3/api-docs/**",

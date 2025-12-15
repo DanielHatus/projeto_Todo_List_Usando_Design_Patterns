@@ -1,0 +1,25 @@
+package com.example.desafio.docs.validate.token.password.user;
+
+import com.example.desafio.dto.request.validation.token.password.ValidationTokenFromResetPasswordDto;
+import com.example.desafio.dto.response.validation.token.password.ResponseValidationPassword;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
+
+@Tag(name="controller that validates the password recovery token"
+,description = "The controller will receive the token generated at another endpoint. It will validate whether the passed token" +
+        " actually exists, whether it has already been used, and whether it has expired. If none of these validations fail, " +
+        "the password passed in the request will be set in the entity and the password will be successfully changed.")
+public interface ValidationTokenPasswordUserDoc {
+    @Operation(
+            summary = "It is responsible for performing this token validation, and if everything goes correctly, " +
+                    "it resets the user's password.",
+            responses = {
+                    @ApiResponse(responseCode = "200",description = "Password renewed successfully."),
+                    @ApiResponse(responseCode = "404",description = "The token passed is incorrect because the data x " +
+                            "(referencing the incorrect data) is incorrect (expired or already used).")
+            }
+    )
+    public ResponseEntity<ResponseValidationPassword> validateTokenPasswordAndRenewPasswordFromResetPasswordFromUserAccount(ValidationTokenFromResetPasswordDto validationTokenFromResetPasswordDto);
+}

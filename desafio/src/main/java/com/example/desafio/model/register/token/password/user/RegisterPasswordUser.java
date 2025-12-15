@@ -1,0 +1,62 @@
+package com.example.desafio.model.register.token.password.user;
+
+import com.example.desafio.model.user.User;
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "register_password_users")
+public class RegisterPasswordUser {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String token;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
+    private LocalDateTime expiresAt;
+    private boolean used;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public LocalDateTime getExpiresAt() {
+        return expiresAt;
+    }
+
+    public boolean isUsed() {
+        return used;
+    }
+
+    public void setUsed(boolean used) {
+        this.used = used;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public RegisterPasswordUser(){
+        this.used=false;
+        this.expiresAt=LocalDateTime.now().plusMinutes(10);
+    }
+
+
+
+}

@@ -1,6 +1,6 @@
 package com.example.desafio.repository.register.password.user;
 
-import com.example.desafio.model.register.password.user.RegisterPasswordUser;
+import com.example.desafio.model.register.token.password.user.RegisterPasswordUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

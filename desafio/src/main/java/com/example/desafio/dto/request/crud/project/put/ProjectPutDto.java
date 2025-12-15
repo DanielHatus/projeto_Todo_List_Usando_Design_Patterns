@@ -4,15 +4,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.time.LocalDate;
 
 public class ProjectPutDto {
     @NotBlank
     private String projectCreator;
-
-    @NotBlank
-    @Size(min=4,max=12)
-    private String passwordAccess;
 
     @NotBlank
     @Size(min=3,max=35)
@@ -30,14 +25,6 @@ public class ProjectPutDto {
 
     public void setProjectCreator(String projectCreator) {
         this.projectCreator = projectCreator;
-    }
-
-    public String getPasswordAccess() {
-        return passwordAccess;
-    }
-
-    public void setPasswordAccess(String passwordAccess) {
-        this.passwordAccess = passwordAccess;
     }
 
     public String getNameProject() {

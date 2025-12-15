@@ -2,15 +2,23 @@ package com.example.desafio.service.crud.project;
 
 import com.example.desafio.dto.request.crud.project.put.ProjectPutDto;
 import com.example.desafio.dto.response.crud.project.ResponseProjectDataDto;
+import com.example.desafio.enums.Role;
+import com.example.desafio.exceptions.typo.runtime.badrequest.BadRequestException;
 import com.example.desafio.exceptions.typo.runtime.notfound.NotFoundException;
 import com.example.desafio.mapper.project.ProjectMapperCore;
 import com.example.desafio.model.project.Project;
+import com.example.desafio.model.user.User;
 import com.example.desafio.repository.project.ProjectRepository;
+import com.example.desafio.repository.user.UserRepository;
 import com.example.desafio.utils.encryptedpassword.EncryptedPassword;
+import com.example.desafio.utils.get.username.by.context.security.GetUsernameByContextHolder;
 import com.example.desafio.utils.pageable.factory.PageableFactoryByClassReceived;
 import com.example.desafio.utils.parse.data.from.iso.american.ParseDataFromIsoAmerican;
+import com.example.desafio.utils.validation.user.is.creator.project.UserRequestIsCreatorProject;
+import com.example.desafio.utils.validation.user.is.role.admin.ValidationIfUserIsRoleAdmin;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -27,27 +35,35 @@ import static org.mockito.Mockito.*;
 class ProjectCrudServiceTest {
 
     @Mock
-    private ProjectRepository repository;
+    private ProjectRepository projectRepository;
 
     @Mock
-    private ProjectMapperCore mapperCore;
+    private  UserRepository userRepository;
 
     @Mock
-    private PageableFactoryByClassReceived  pageableFactoryByClassReceived;
+    private  ProjectMapperCore mapperCore;
 
     @Mock
-    private ParseDataFromIsoAmerican fromIsoAmerican;
+    private  PageableFactoryByClassReceived pageableFactoryByClassReceived;
 
     @Mock
-    private EncryptedPassword encryptedPassword;
+    private  ParseDataFromIsoAmerican fromIsoAmerican;
 
+    @Mock
+    private  ValidationIfUserIsRoleAdmin validationIfUserIsRoleAdmin;
+
+    @Mock
+    private  GetUsernameByContextHolder getUsernameByContextHolder;
+
+    @Mock
+    private  UserRequestIsCreatorProject userRequestIsCreatorProject;
+
+    @InjectMocks
     private ProjectCrudService projectCrudService;
 
     @BeforeEach
     void setUp(){
-        MockitoAnnotations.openMocks(this);
-        this.projectCrudService=new ProjectCrudService(repository,mapperCore,pageableFactoryByClassReceived,fromIsoAmerican,encryptedPassword);
-    }
+        MockitoAnnotations.openMocks(this);}
 
     @Test
     void getProjectByPageOrderSuccess(){
@@ -97,7 +113,7 @@ class ProjectCrudServiceTest {
         Page<ResponseProjectDataDto>  pageProjectsDto=new PageImpl<>(listProjectsDto,pageable,listProjectsDto.size());
 
         when(pageableFactoryByClassReceived.pageableFactory(Project.class,page,size,order,direction)).thenReturn(pageable);
-        when(repository.findAll(pageable)).thenReturn(pageProjects);
+        when(projectRepository.findAll(pageable)).thenReturn(pageProjects);
         when(mapperCore.toPageResponseProjectDataDto(pageProjects)).thenReturn(pageProjectsDto);
 
         Page<ResponseProjectDataDto> result=this.projectCrudService.getProjectByPageOrder(page,size,order,direction);
@@ -125,14 +141,14 @@ class ProjectCrudServiceTest {
         responseProjectDataDto1.setStartDate(project1.getStartDate());
         responseProjectDataDto1.setId(project1.getId());
 
-        when(repository.findById(idRequest)).thenReturn(Optional.of(project1));
+        when(projectRepository.findById(idRequest)).thenReturn(Optional.of(project1));
         when(mapperCore.toResponseProjectDataDto(project1)).thenReturn(responseProjectDataDto1);
 
         ResponseProjectDataDto result=this.projectCrudService.getById(idRequest);
 
         assertEquals(responseProjectDataDto1.getId(),result.getId());
         assertEquals(responseProjectDataDto1.getNameProject(),result.getNameProject());
-        verify(repository,times(1)).findById(idRequest);
+        verify(projectRepository,times(1)).findById(idRequest);
     }
 
     @Test
@@ -155,10 +171,10 @@ class ProjectCrudServiceTest {
         responseProjectDataDto1.setStartDate(project1.getStartDate());
         responseProjectDataDto1.setId(project1.getId());
 
-        when(repository.findById(idRequest)).thenReturn(Optional.empty()).thenThrow(new NotFoundException("id not found"));
+        when(projectRepository.findById(idRequest)).thenReturn(Optional.empty()).thenThrow(new NotFoundException("id not found"));
 
         assertThrows(NotFoundException.class,()-> this.projectCrudService.getById(idRequest));
-        verify(repository,times(1)).findById(idRequest);
+        verify(projectRepository,times(1)).findById(idRequest);
     }
 
     @Test
@@ -187,51 +203,63 @@ class ProjectCrudServiceTest {
         responseProjectDataDto.setStartDate(entitySaved.getStartDate());
         responseProjectDataDto.setId(entitySaved.getId());
 
-       when(repository.save(any(Project.class))).thenReturn(entitySaved);
+       when(projectRepository.save(any(Project.class))).thenReturn(entitySaved);
        when(mapperCore.toResponseProjectDataDto(any(Project.class))).thenReturn(responseProjectDataDto);
        ResponseProjectDataDto result=this.projectCrudService.saveProjectInDbAndReturnEntityDtoMapped(entity);
 
        assertEquals(responseProjectDataDto.getNameProject(),result.getNameProject());
        assertEquals(responseProjectDataDto.getProjectCreator(),result.getProjectCreator());
-       verify(repository,times(1)).save(entity);
+       verify(projectRepository,times(1)).save(entity);
     }
 
     @Test
-    void updateProjectPutSuccess(){
+    void updateDataProjectSuccessWithAdminUser(){
         Long idRequest=1L;
+        String usernameRequest="usernameRequest";
 
         ProjectPutDto entityRequest=new ProjectPutDto();
         entityRequest.setProjectCreator("creator");
         entityRequest.setEndDate("01/01/2025");
         entityRequest.setNameProject("nameProject");
         entityRequest.setDescription("description");
-        entityRequest.setPasswordAccess("password");
 
         Project entityOrigin=new Project();
         entityOrigin.setId(1L);
         entityOrigin.setProjectCreator("creator");
         entityOrigin.setEndDate(LocalDate.of(2025,1,1));
-        entityOrigin.setStartDate(LocalDate.of(2025,1,1));
         entityOrigin.setNameProject("nameProject");
         entityOrigin.setDescription("description");
         entityOrigin.setPasswordAccess("password");
 
-       when(repository.findById(idRequest)).thenReturn(Optional.of(entityOrigin));
+        User user1=new User();
+        user1.setId(1L);
+        user1.setEmail("teste@gmail.com");
+        user1.setPassword("testeDecoded");
+        user1.setFirstName("teste");
+        user1.setLastName("teste");
+        user1.setUsername("teste");
+
+       when(projectRepository.findById(idRequest)).thenReturn(Optional.of(entityOrigin));
+
+       when(getUsernameByContextHolder.execute()).thenReturn(usernameRequest);
+
+       when(userRepository.findByUsername(any(String.class))).thenReturn(Optional.of(user1));
+
+       when(validationIfUserIsRoleAdmin.userIsAdmin(any(Role.class))).thenReturn(true);
+
        doAnswer(invocation->{
 
        Project entityArgument=invocation.getArgument(0);
        ProjectPutDto dtoArgument=invocation.getArgument(1);
        entityArgument.setId(1L);
        entityArgument.setNameProject(dtoArgument.getNameProject());
-       entityArgument.setStartDate(LocalDate.of(2025,1,1));
        entityArgument.setEndDate(LocalDate.of(2025,1,1));
        entityArgument.setProjectCreator(dtoArgument.getProjectCreator());
        entityArgument.setDescription(dtoArgument.getDescription());
-       entityArgument.setPasswordAccess(dtoArgument.getPasswordAccess());
        return null;
        }).when(mapperCore).updateEntityPut(any(Project.class),any(ProjectPutDto.class));
 
-       when(repository.save(any(Project.class))).thenAnswer(invocation->{
+       when(projectRepository.save(any(Project.class))).thenAnswer(invocation->{
          return invocation.getArgument(0);
        });
 
@@ -246,14 +274,85 @@ class ProjectCrudServiceTest {
            responseProjectDataDto.setEndDate(entity.getEndDate());
            return responseProjectDataDto;
        });
-       ResponseProjectDataDto result=this.projectCrudService.updateProjectPut(1L,entityRequest);
+
+       ResponseProjectDataDto result=this.projectCrudService.updateDataProject(1L,entityRequest);
+
        assertEquals(entityRequest.getNameProject(),result.getNameProject());
        assertEquals(entityRequest.getProjectCreator(),result.getProjectCreator());
-
     }
 
     @Test
-    void updateProjectPutFailedPerIdNotFoundInDb(){
+    void updateDataProjectSuccessWithUserIsCreatorProject(){
+        Long idRequest=1L;
+        String usernameRequest="usernameRequest";
+
+        ProjectPutDto entityRequest=new ProjectPutDto();
+        entityRequest.setProjectCreator("creator");
+        entityRequest.setEndDate("01/01/2025");
+        entityRequest.setNameProject("nameProject");
+        entityRequest.setDescription("description");
+
+        Project entityOrigin=new Project();
+        entityOrigin.setId(1L);
+        entityOrigin.setProjectCreator("creator");
+        entityOrigin.setEndDate(LocalDate.of(2025,1,1));
+        entityOrigin.setNameProject("nameProject");
+        entityOrigin.setDescription("description");
+        entityOrigin.setPasswordAccess("password");
+
+        User user1=new User();
+        user1.setId(1L);
+        user1.setEmail("teste@gmail.com");
+        user1.setPassword("testeDecoded");
+        user1.setFirstName("teste");
+        user1.setLastName("teste");
+        user1.setUsername("usernameRequest");
+
+        when(projectRepository.findById(idRequest)).thenReturn(Optional.of(entityOrigin));
+
+        when(getUsernameByContextHolder.execute()).thenReturn(usernameRequest);
+
+        when(userRepository.findByUsername(any(String.class))).thenReturn(Optional.of(user1));
+
+        when(validationIfUserIsRoleAdmin.userIsAdmin(any(Role.class))).thenReturn(false);
+
+        doNothing().when(userRequestIsCreatorProject).throwIfUserRequestNotCreatorProject(any(String.class),any(String.class));
+
+        doAnswer(invocation->{
+            Project entityArgument=invocation.getArgument(0);
+            ProjectPutDto dtoArgument=invocation.getArgument(1);
+            entityArgument.setId(1L);
+            entityArgument.setNameProject(dtoArgument.getNameProject());
+            entityArgument.setEndDate(LocalDate.of(2025,1,1));
+            entityArgument.setProjectCreator(dtoArgument.getProjectCreator());
+            entityArgument.setDescription(dtoArgument.getDescription());
+            return null;
+        }).when(mapperCore).updateEntityPut(any(Project.class),any(ProjectPutDto.class));
+
+        when(projectRepository.save(any(Project.class))).thenAnswer(invocation->{
+            return invocation.getArgument(0);
+        });
+
+        when(mapperCore.toResponseProjectDataDto(any(Project.class))).thenAnswer(invocation->{
+            ResponseProjectDataDto responseProjectDataDto=new ResponseProjectDataDto();
+            Project entity=invocation.getArgument(0);
+            responseProjectDataDto.setId(entity.getId());
+            responseProjectDataDto.setProjectCreator(entity.getProjectCreator());
+            responseProjectDataDto.setNameProject(entity.getNameProject());
+            responseProjectDataDto.setDescription(entity.getDescription());
+            responseProjectDataDto.setStartDate(entity.getStartDate());
+            responseProjectDataDto.setEndDate(entity.getEndDate());
+            return responseProjectDataDto;
+        });
+
+        ResponseProjectDataDto result=this.projectCrudService.updateDataProject(1L,entityRequest);
+
+        assertEquals(entityRequest.getNameProject(),result.getNameProject());
+        assertEquals(entityRequest.getProjectCreator(),result.getProjectCreator());
+    }
+
+    @Test
+    void updateDataProjectFailedPerIdNotFoundInDb(){
         Long idRequest=2L;
 
         ProjectPutDto entityRequest=new ProjectPutDto();
@@ -261,7 +360,6 @@ class ProjectCrudServiceTest {
         entityRequest.setEndDate("01/01/2025");
         entityRequest.setNameProject("nameProject");
         entityRequest.setDescription("description");
-        entityRequest.setPasswordAccess("password");
 
         Project entityOrigin=new Project();
         entityOrigin.setId(1L);
@@ -272,24 +370,65 @@ class ProjectCrudServiceTest {
         entityOrigin.setDescription("description");
         entityOrigin.setPasswordAccess("password");
 
-        when(repository.findById(idRequest)).thenReturn(Optional.empty()).thenThrow(new NotFoundException("id not found"));
-        assertThrows(NotFoundException.class,()->this.projectCrudService.updateProjectPut(idRequest,entityRequest));
-        verify(repository,times(1)).findById(idRequest);
+        when(projectRepository.findById(idRequest)).thenReturn(Optional.empty()).thenThrow(new NotFoundException("id not found"));
+        assertThrows(NotFoundException.class,()->this.projectCrudService.updateDataProject(idRequest,entityRequest));
+        verify(projectRepository,times(1)).findById(idRequest);
+    }
+
+    @Test
+    void updateDataProjectFailedPerUserNotAdminAndNotCreatorProject(){
+        Long idRequest=1L;
+        String usernameRequest="usernameRequest";
+
+        ProjectPutDto entityDtoRequest=new ProjectPutDto();
+        entityDtoRequest.setProjectCreator("creator");
+        entityDtoRequest.setEndDate("01/01/2025");
+        entityDtoRequest.setNameProject("nameProject");
+        entityDtoRequest.setDescription("description");
+
+        Project entityOrigin=new Project();
+        entityOrigin.setId(1L);
+        entityOrigin.setProjectCreator("creator");
+        entityOrigin.setEndDate(LocalDate.of(2025,1,1));
+        entityOrigin.setNameProject("nameProject");
+        entityOrigin.setDescription("description");
+        entityOrigin.setPasswordAccess("password");
+
+        User user1=new User();
+        user1.setId(1L);
+        user1.setEmail("teste@gmail.com");
+        user1.setPassword("testeDecoded");
+        user1.setFirstName("teste");
+        user1.setLastName("teste");
+        user1.setUsername("teste");
+
+        when(projectRepository.findById(idRequest)).thenReturn(Optional.of(entityOrigin));
+
+        when(getUsernameByContextHolder.execute()).thenReturn(usernameRequest);
+
+        when(userRepository.findByUsername(any(String.class))).thenReturn(Optional.of(user1));
+
+        when(validationIfUserIsRoleAdmin.userIsAdmin(any(Role.class))).thenReturn(false);
+
+        doThrow(new BadRequestException("You are not the project creator and therefore cannot update the data.")).when(userRequestIsCreatorProject)
+                        .throwIfUserRequestNotCreatorProject(any(String.class),any(String.class));
+
+        assertThrows(BadRequestException.class,()-> this.projectCrudService.updateDataProject(idRequest,entityDtoRequest));
     }
 
     @Test
     void deleteProjectSuccess() {
         Long idRequest=1L;
-        doNothing().when(repository).deleteById(idRequest);
+        doNothing().when(projectRepository).deleteById(idRequest);
         this.projectCrudService.deleteProject(idRequest);
-        verify(repository,times(1)).deleteById(idRequest);
+        verify(projectRepository,times(1)).deleteById(idRequest);
     }
 
     @Test
     void deleteProjectFailedPerIdNotFoundInDb(){
         Long idRequest=1L;
-        doThrow(new EmptyResultDataAccessException(1)).when(repository).deleteById(idRequest);
+        doThrow(new EmptyResultDataAccessException(1)).when(projectRepository).deleteById(idRequest);
         assertThrows(NotFoundException.class,()->this.projectCrudService.deleteProject(idRequest));
-        verify(repository,times(1)).deleteById(idRequest);
+        verify(projectRepository,times(1)).deleteById(idRequest);
     }
 }

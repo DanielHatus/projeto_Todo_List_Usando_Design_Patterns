@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -34,6 +35,7 @@ public class ProjectCrudController implements ProjectCrudDoc{
     @Override
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Page<ResponseProjectDataDto>> getProjectByOrder(
             @RequestParam Integer page,
             @RequestParam Integer size,
@@ -44,12 +46,14 @@ public class ProjectCrudController implements ProjectCrudDoc{
 
     @Override
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<ResponseProjectDataDto> getProjectById(@PathVariable Long id) {
         return ResponseEntity.ok(projectCrudService.getById(id));
     }
 
     @Override
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyAuthority('ROLE_USER','ROLE_ADMIN')")
     public ResponseEntity<ResponseProjectDataDto> createNewProject(@RequestBody @Valid ProjectPostDto projectPostDto) {
         ResponseProjectDataDto entityDto=registerNewProjectFacade.execute(projectPostDto);
         return ResponseEntity.created(generateUri.build(entityDto.getId())).body(entityDto);
@@ -57,12 +61,14 @@ public class ProjectCrudController implements ProjectCrudDoc{
 
     @Override
     @PutMapping(value = "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyAuthority('ROLE_USER','ROLE_ADMIN')")
     public ResponseEntity<ResponseProjectDataDto> updateProject(@PathVariable Long id, @RequestBody @Valid ProjectPutDto projectPutDto) {
-        return ResponseEntity.ok(projectCrudService.updateProjectPut(id,projectPutDto));
+        return ResponseEntity.ok(projectCrudService.updateDataProject(id,projectPutDto));
     }
 
     @Override
     @DeleteMapping(value = "/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteProjectById(@PathVariable Long id){
         projectCrudService.deleteProject(id);
         return ResponseEntity.noContent().build();

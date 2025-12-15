@@ -8,9 +8,10 @@ import com.example.desafio.exceptions.typo.runtime.notfound.NotFoundException;
 import com.example.desafio.mapper.user.UserMapperCore;
 import com.example.desafio.model.user.User;
 import com.example.desafio.repository.user.UserRepository;
-import com.example.desafio.service.crud.user.validation.put.ValidationIfUserEffectPutThemSelves;
 import com.example.desafio.utils.encryptedpassword.EncryptedPassword;
+import com.example.desafio.utils.get.username.by.context.security.GetUsernameByContextHolder;
 import com.example.desafio.utils.pageable.factory.PageableFactoryByClassReceived;
+import com.example.desafio.utils.validation.user.put.them.selves.ValidationIfUserEffectPutThemSelves;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
@@ -27,7 +28,7 @@ public class UserCrudService{
     private final EncryptedPassword encryptedPassword;
     private final PageableFactoryByClassReceived pageableFactoryByClassReceived;
     private final ValidationIfUserEffectPutThemSelves validationIfUserEffectPutThemSelves;
-
+    private final GetUsernameByContextHolder getUsernameByContextHolder;
 
 
     public UserCrudService(
@@ -35,13 +36,15 @@ public class UserCrudService{
             UserMapperCore mapperCore,
             EncryptedPassword encryptedPassword,
             PageableFactoryByClassReceived pageableFactoryByClassReceived,
-            ValidationIfUserEffectPutThemSelves validationIfUserEffectPutThemSelves) {
+            ValidationIfUserEffectPutThemSelves validationIfUserEffectPutThemSelves,
+            GetUsernameByContextHolder getUsernameByContextHolder) {
 
             this.repository = repository;
             this.mapperCore = mapperCore;
             this.encryptedPassword = encryptedPassword;
             this.pageableFactoryByClassReceived=pageableFactoryByClassReceived;
             this.validationIfUserEffectPutThemSelves=validationIfUserEffectPutThemSelves;
+            this.getUsernameByContextHolder=getUsernameByContextHolder;
     }
 
     public Page<ResponseUserDataDto> getUserByPageOrder(Integer page,Integer size,String order,String direction){
@@ -61,7 +64,9 @@ public class UserCrudService{
     public void updateUserDataSimple(Long id, UserPutDtoDataSimple userPutDtoDataSimple){
       User entity=getEntityByIdOrThrow(id);
 
-      validationIfUserEffectPutThemSelves.validate(entity.getUsername());
+      String userUsernameAccount=getUsernameByContextHolder.execute();
+
+      validationIfUserEffectPutThemSelves.throwIfUserRequestIsDifferentEntityUser(userUsernameAccount,entity.getUsername());
 
       mapperCore.updateUserPutSimple(entity, userPutDtoDataSimple);
       log.debug("✅ The data from the PUT simple request was successfully inserted into the entity.");
@@ -89,7 +94,6 @@ public class UserCrudService{
         mapperCore.updateUserPatch(entity,userPatchDto);
         log.debug("✅ The data from the PATCH request was successfully inserted into the entity.");
 
-        entity.setPassword(encryptedPassword.encrypted(entity.getPassword()));
 
         log.debug("✅ The updated user was saved on the server and returned as a successful Dto.");
         return mapperCore.toResponseUserDataDto(repository.save(entity));

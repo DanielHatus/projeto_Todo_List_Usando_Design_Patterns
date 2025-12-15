@@ -5,10 +5,15 @@ import com.example.desafio.dto.response.crud.project.ResponseProjectDataDto;
 import com.example.desafio.exceptions.typo.runtime.notfound.NotFoundException;
 import com.example.desafio.mapper.project.ProjectMapperCore;
 import com.example.desafio.model.project.Project;
+import com.example.desafio.model.user.User;
 import com.example.desafio.repository.project.ProjectRepository;
+import com.example.desafio.repository.user.UserRepository;
 import com.example.desafio.utils.encryptedpassword.EncryptedPassword;
+import com.example.desafio.utils.get.username.by.context.security.GetUsernameByContextHolder;
 import com.example.desafio.utils.pageable.factory.PageableFactoryByClassReceived;
 import com.example.desafio.utils.parse.data.from.iso.american.ParseDataFromIsoAmerican;
+import com.example.desafio.utils.validation.user.is.creator.project.UserRequestIsCreatorProject;
+import com.example.desafio.utils.validation.user.is.role.admin.ValidationIfUserIsRoleAdmin;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
@@ -20,29 +25,38 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class ProjectCrudService{
 
-    private final ProjectRepository repository;
+    private final ProjectRepository projectRepository;
+    private final UserRepository userRepository;
     private final ProjectMapperCore mapperCore;
     private final PageableFactoryByClassReceived pageableFactoryByClassReceived;
     private final ParseDataFromIsoAmerican fromIsoAmerican;
-    private final EncryptedPassword encryptedPassword;
+    private final ValidationIfUserIsRoleAdmin validationIfUserIsRoleAdmin;
+    private final GetUsernameByContextHolder getUsernameByContextHolder;
+    private final UserRequestIsCreatorProject userRequestIsCreatorProject;
 
     public ProjectCrudService(
-            ProjectRepository repository,
+            ProjectRepository projectRepository,
+            UserRepository userRepository,
             ProjectMapperCore mapperCore,
             PageableFactoryByClassReceived pageableFactoryByClassReceived,
             ParseDataFromIsoAmerican fromIsoAmerican,
-            EncryptedPassword encryptedPassword) {
+            ValidationIfUserIsRoleAdmin validationIfUserIsRoleAdmin,
+            GetUsernameByContextHolder getUsernameByContextHolder,
+            UserRequestIsCreatorProject userRequestIsCreatorProject) {
 
-        this.repository = repository;
+        this.projectRepository = projectRepository;
+        this.userRepository = userRepository;
         this.mapperCore = mapperCore;
         this.pageableFactoryByClassReceived = pageableFactoryByClassReceived;
-        this.fromIsoAmerican=fromIsoAmerican;
-        this.encryptedPassword=encryptedPassword;
+        this.fromIsoAmerican = fromIsoAmerican;
+        this.validationIfUserIsRoleAdmin = validationIfUserIsRoleAdmin;
+        this.getUsernameByContextHolder = getUsernameByContextHolder;
+        this.userRequestIsCreatorProject = userRequestIsCreatorProject;
     }
 
-    public Page<ResponseProjectDataDto> getProjectByPageOrder(Integer page,Integer size,String order,String direction){
+    public Page<ResponseProjectDataDto> getProjectByPageOrder(Integer page, Integer size, String order, String direction){
         Pageable pageable=pageableFactoryByClassReceived.pageableFactory(Project.class,page,size,order,direction);
-        return mapperCore.toPageResponseProjectDataDto(repository.findAll(pageable));
+        return mapperCore.toPageResponseProjectDataDto(projectRepository.findAll(pageable));
     }
 
     public ResponseProjectDataDto getById(Long id){
@@ -50,7 +64,7 @@ public class ProjectCrudService{
     }
 
     public ResponseProjectDataDto saveProjectInDbAndReturnEntityDtoMapped(Project entity){
-        repository.save(entity);
+        projectRepository.save(entity);
         log.debug("✅ Everything went correctly and the project was successfully saved to the database, " +
                 "returning the DTO in the response body.");
 
@@ -58,24 +72,31 @@ public class ProjectCrudService{
     }
 
     @Transactional
-    public ResponseProjectDataDto updateProjectPut(Long id,ProjectPutDto projectPutDto){
-      Project entity=getEntityByIdOrThrow(id);
+    public ResponseProjectDataDto updateDataProject(Long id,ProjectPutDto projectPutDto){
+      Project entityProject=getEntityByIdOrThrow(id);
 
-      mapperCore.updateEntityPut(entity,projectPutDto);
+      String usernameRequestAccount=getUsernameByContextHolder.execute();
+
+      User entityUser=userRepository.findByUsername(usernameRequestAccount).get();
+
+      if (!validationIfUserIsRoleAdmin.userIsAdmin(entityUser.getRole())){
+          userRequestIsCreatorProject.throwIfUserRequestNotCreatorProject(usernameRequestAccount,entityProject.getProjectCreator());
+    }
+
+      mapperCore.updateEntityPut(entityProject,projectPutDto);
       log.debug("✅ The project entity was successfully mapped using mapstruct.");
 
-      entity.setPasswordAccess(encryptedPassword.encrypted(projectPutDto.getPasswordAccess()));
+      entityProject.setEndDate(fromIsoAmerican.parseDataFormatBrazilianImAmerican(projectPutDto.getEndDate()));
 
-      entity.setEndDate(fromIsoAmerican.parseDataFormatBrazilianImAmerican(projectPutDto.getEndDate()));
+      projectRepository.save(entityProject);
 
-      repository.save(entity);
       log.debug("✅ The entity data update was successful. The DTO was returned to the response body.");
-      return mapperCore.toResponseProjectDataDto(entity);
+      return mapperCore.toResponseProjectDataDto(entityProject);
     }
 
     public void deleteProject(Long id){
         try{
-            repository.deleteById(id);
+            projectRepository.deleteById(id);
             log.debug("✅ project successfully deleted.");
         }
         catch (EmptyResultDataAccessException e){
@@ -85,7 +106,7 @@ public class ProjectCrudService{
     }
 
     private Project getEntityByIdOrThrow(Long id){
-        Project entity=repository.findById(id)
+        Project entity=projectRepository.findById(id)
                 .orElseThrow(()-> {
                     log.error("❌ No project registered with ID {} was found on the server.",id);
                     return new NotFoundException("id not found in database");
