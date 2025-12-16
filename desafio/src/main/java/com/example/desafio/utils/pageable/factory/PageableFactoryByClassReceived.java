@@ -23,7 +23,6 @@ public class PageableFactoryByClassReceived{
         this.implementPageableUser = implementPageableUser;
         this.implementPageableProject=implementPageableProject;
     }
-    //factory-> ele vai gerar objetos com base na complexidade que o dev precisa->
 
     public<ClassReceived> Pageable pageableFactory(Class<ClassReceived> classReceived, Integer page, Integer size, String order, String direction){
         if (classReceived==User.class){

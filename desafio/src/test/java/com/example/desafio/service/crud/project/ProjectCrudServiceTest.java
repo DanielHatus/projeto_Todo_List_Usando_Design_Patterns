@@ -218,7 +218,6 @@ class ProjectCrudServiceTest {
         String usernameRequest="usernameRequest";
 
         ProjectPutDto entityRequest=new ProjectPutDto();
-        entityRequest.setProjectCreator("creator");
         entityRequest.setEndDate("01/01/2025");
         entityRequest.setNameProject("nameProject");
         entityRequest.setDescription("description");
@@ -254,7 +253,6 @@ class ProjectCrudServiceTest {
        entityArgument.setId(1L);
        entityArgument.setNameProject(dtoArgument.getNameProject());
        entityArgument.setEndDate(LocalDate.of(2025,1,1));
-       entityArgument.setProjectCreator(dtoArgument.getProjectCreator());
        entityArgument.setDescription(dtoArgument.getDescription());
        return null;
        }).when(mapperCore).updateEntityPut(any(Project.class),any(ProjectPutDto.class));
@@ -278,7 +276,6 @@ class ProjectCrudServiceTest {
        ResponseProjectDataDto result=this.projectCrudService.updateDataProject(1L,entityRequest);
 
        assertEquals(entityRequest.getNameProject(),result.getNameProject());
-       assertEquals(entityRequest.getProjectCreator(),result.getProjectCreator());
     }
 
     @Test
@@ -287,7 +284,6 @@ class ProjectCrudServiceTest {
         String usernameRequest="usernameRequest";
 
         ProjectPutDto entityRequest=new ProjectPutDto();
-        entityRequest.setProjectCreator("creator");
         entityRequest.setEndDate("01/01/2025");
         entityRequest.setNameProject("nameProject");
         entityRequest.setDescription("description");
@@ -324,7 +320,6 @@ class ProjectCrudServiceTest {
             entityArgument.setId(1L);
             entityArgument.setNameProject(dtoArgument.getNameProject());
             entityArgument.setEndDate(LocalDate.of(2025,1,1));
-            entityArgument.setProjectCreator(dtoArgument.getProjectCreator());
             entityArgument.setDescription(dtoArgument.getDescription());
             return null;
         }).when(mapperCore).updateEntityPut(any(Project.class),any(ProjectPutDto.class));
@@ -348,7 +343,6 @@ class ProjectCrudServiceTest {
         ResponseProjectDataDto result=this.projectCrudService.updateDataProject(1L,entityRequest);
 
         assertEquals(entityRequest.getNameProject(),result.getNameProject());
-        assertEquals(entityRequest.getProjectCreator(),result.getProjectCreator());
     }
 
     @Test
@@ -356,7 +350,6 @@ class ProjectCrudServiceTest {
         Long idRequest=2L;
 
         ProjectPutDto entityRequest=new ProjectPutDto();
-        entityRequest.setProjectCreator("creator");
         entityRequest.setEndDate("01/01/2025");
         entityRequest.setNameProject("nameProject");
         entityRequest.setDescription("description");
@@ -381,7 +374,6 @@ class ProjectCrudServiceTest {
         String usernameRequest="usernameRequest";
 
         ProjectPutDto entityDtoRequest=new ProjectPutDto();
-        entityDtoRequest.setProjectCreator("creator");
         entityDtoRequest.setEndDate("01/01/2025");
         entityDtoRequest.setNameProject("nameProject");
         entityDtoRequest.setDescription("description");

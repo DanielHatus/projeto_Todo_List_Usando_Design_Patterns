@@ -8,7 +8,6 @@ import com.example.desafio.model.project.Project;
 import com.example.desafio.model.user.User;
 import com.example.desafio.repository.project.ProjectRepository;
 import com.example.desafio.repository.user.UserRepository;
-import com.example.desafio.utils.encryptedpassword.EncryptedPassword;
 import com.example.desafio.utils.get.username.by.context.security.GetUsernameByContextHolder;
 import com.example.desafio.utils.pageable.factory.PageableFactoryByClassReceived;
 import com.example.desafio.utils.parse.data.from.iso.american.ParseDataFromIsoAmerican;
@@ -78,10 +77,13 @@ public class ProjectCrudService{
       String usernameRequestAccount=getUsernameByContextHolder.execute();
 
       User entityUser=userRepository.findByUsername(usernameRequestAccount).get();
+      log.debug("✅ The entity was successfully retrieved by the username in the request.");
 
       if (!validationIfUserIsRoleAdmin.userIsAdmin(entityUser.getRole())){
+          log.debug("✅ The user is not an admin; check if they are the project creator.");
           userRequestIsCreatorProject.throwIfUserRequestNotCreatorProject(usernameRequestAccount,entityProject.getProjectCreator());
-    }
+       }
+      log.debug("✅ The user has been successfully validated; they can now update the project data.");
 
       mapperCore.updateEntityPut(entityProject,projectPutDto);
       log.debug("✅ The project entity was successfully mapped using mapstruct.");
@@ -89,8 +91,8 @@ public class ProjectCrudService{
       entityProject.setEndDate(fromIsoAmerican.parseDataFormatBrazilianImAmerican(projectPutDto.getEndDate()));
 
       projectRepository.save(entityProject);
-
       log.debug("✅ The entity data update was successful. The DTO was returned to the response body.");
+
       return mapperCore.toResponseProjectDataDto(entityProject);
     }
 

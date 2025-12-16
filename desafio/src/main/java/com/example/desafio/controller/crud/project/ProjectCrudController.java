@@ -33,14 +33,13 @@ public class ProjectCrudController implements ProjectCrudDoc{
     }
 
     @Override
-
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Page<ResponseProjectDataDto>> getProjectByOrder(
-            @RequestParam Integer page,
-            @RequestParam Integer size,
-            @RequestParam String order,
-            @RequestParam String direction) {
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer size,
+            @RequestParam(required = false) String order,
+            @RequestParam(required = false) String direction) {
         return ResponseEntity.ok(projectCrudService.getProjectByPageOrder(page,size,order,direction));
     }
 

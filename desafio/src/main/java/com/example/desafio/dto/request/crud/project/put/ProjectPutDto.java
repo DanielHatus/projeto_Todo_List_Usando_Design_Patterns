@@ -6,8 +6,6 @@ import jakarta.validation.constraints.Size;
 
 
 public class ProjectPutDto {
-    @NotBlank
-    private String projectCreator;
 
     @NotBlank
     @Size(min=3,max=35)
@@ -18,14 +16,6 @@ public class ProjectPutDto {
 
     @NotNull
     private String endDate;
-
-    public String getProjectCreator() {
-        return projectCreator;
-    }
-
-    public void setProjectCreator(String projectCreator) {
-        this.projectCreator = projectCreator;
-    }
 
     public String getNameProject() {
         return nameProject;
