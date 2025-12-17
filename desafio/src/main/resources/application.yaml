@@ -3,8 +3,8 @@ spring:
     name: desafio
 
   mail:
-    username: ${EMAIL_USERNAME_DESAFIO}
-    password: ${EMAIL_PASSWORD_DESAFIO}
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD_APP}
     host: smtp.gmail.com
     port: 587
     properties:
@@ -16,8 +16,8 @@ spring:
 
   datasource:
     url: jdbc:postgresql://localhost:5432/db_desafio
-    username: postgres
-    password: admin1234
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -39,7 +39,7 @@ jwt:
     long-expiration: 86400000
 
   secret-key:
-    key-base64: OTg4YThlMjY0ZmY3ODNkMjdkNjM4YTlkNTg3MmRjMmMxYjZmOWFlZDM0NTJkZjliNTQ4ZmQwYzJhNWIwN2ZhMw==
+    key-base64: ${SECRET_KEY_IN_BASE_64}
 
 springdoc:
   api-docs:
