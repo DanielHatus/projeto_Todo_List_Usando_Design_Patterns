@@ -1,0 +1,1143 @@
+Listagem de caminhos de pasta
+O n£mero de s‚rie do volume ‚ 3492-0802
+C:.
+|   .env
+|   .env.example
+|   .gitattributes
+|   .gitignore
+|   estrutura.txt
+|   HELP.md
+|   mvnw
+|   mvnw.cmd
+|   pom.xml
+|   
++---.idea
+|       .gitignore
+|       compiler.xml
+|       encodings.xml
+|       jarRepositories.xml
+|       misc.xml
+|       workspace.xml
+|       
++---.mvn
+|   \---wrapper
+|           maven-wrapper.properties
+|           
++---src
+|   +---main
+|   |   +---java
+|   |   |   \---com
+|   |   |       \---example
+|   |   |           \---desafio
+|   |   |               |   DesafioApplication.java
+|   |   |               |   
+|   |   |               +---cfg
+|   |   |               |   \---admin
+|   |   |               |       \---initialzer
+|   |   |               |           \---account
+|   |   |               |                   InitializerAdminAccount.java
+|   |   |               |                   
+|   |   |               +---controller
+|   |   |               |   +---authentication
+|   |   |               |   |       AuthUserController.java
+|   |   |               |   |       
+|   |   |               |   +---crud
+|   |   |               |   |   +---project
+|   |   |               |   |   |       ProjectCrudController.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---task
+|   |   |               |   |   |       TaskCrudController.java
+|   |   |               |   |   |       
+|   |   |               |   |   \---user
+|   |   |               |   |           UserCrudController.java
+|   |   |               |   |           
+|   |   |               |   +---received
+|   |   |               |   |   \---token
+|   |   |               |   |       \---password
+|   |   |               |   |           +---project
+|   |   |               |   |           |       ReceivedPasswordProjectController.java
+|   |   |               |   |           |       
+|   |   |               |   |           \---user
+|   |   |               |   |                   ReceivedPasswordUserUserController.java
+|   |   |               |   |                   
+|   |   |               |   \---validate
+|   |   |               |       \---token
+|   |   |               |           \---password
+|   |   |               |               +---project
+|   |   |               |               |       ValidatePasswordProjectController.java
+|   |   |               |               |       
+|   |   |               |               \---user
+|   |   |               |                       ValidationTokenPasswordUserUserController.java
+|   |   |               |                       
+|   |   |               +---docs
+|   |   |               |   +---authetication
+|   |   |               |   |       AuthUserDoc.java
+|   |   |               |   |       
+|   |   |               |   +---crud
+|   |   |               |   |   +---project
+|   |   |               |   |   |       ProjectCrudDoc.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---task
+|   |   |               |   |   |       TaskCrudDoc.java
+|   |   |               |   |   |       
+|   |   |               |   |   \---user
+|   |   |               |   |           UserCrudDoc.java
+|   |   |               |   |           
+|   |   |               |   +---received
+|   |   |               |   |   \---token
+|   |   |               |   |       \---password
+|   |   |               |   |           +---project
+|   |   |               |   |           |       ReceivedPasswordProjectDoc.java
+|   |   |               |   |           |       
+|   |   |               |   |           \---user
+|   |   |               |   |                   ReceivedPasswordUserDoc.java
+|   |   |               |   |                   
+|   |   |               |   \---validate
+|   |   |               |       \---token
+|   |   |               |           \---password
+|   |   |               |               +---project
+|   |   |               |               |       ValidationTokenPasswordProjectDoc.java
+|   |   |               |               |       
+|   |   |               |               \---user
+|   |   |               |                       ValidationTokenPasswordUserDoc.java
+|   |   |               |                       
+|   |   |               +---dto
+|   |   |               |   +---request
+|   |   |               |   |   +---authentication
+|   |   |               |   |   |       UserLoginDto.java
+|   |   |               |   |   |       UserRegisterDto.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---crud
+|   |   |               |   |   |   +---project
+|   |   |               |   |   |   |   +---post
+|   |   |               |   |   |   |   |       ProjectPostDto.java
+|   |   |               |   |   |   |   |       
+|   |   |               |   |   |   |   \---put
+|   |   |               |   |   |   |           ProjectPutDto.java
+|   |   |               |   |   |   |           
+|   |   |               |   |   |   +---task
+|   |   |               |   |   |   |   +---post
+|   |   |               |   |   |   |   |       TaskPostDto.java
+|   |   |               |   |   |   |   |       
+|   |   |               |   |   |   |   \---put
+|   |   |               |   |   |   |           TaskPutDto.java
+|   |   |               |   |   |   |           
+|   |   |               |   |   |   \---user
+|   |   |               |   |   |       +---patch
+|   |   |               |   |   |       |       UserPatchDto.java
+|   |   |               |   |   |       |       
+|   |   |               |   |   |       \---put
+|   |   |               |   |   |           +---complete
+|   |   |               |   |   |           |       UserPutDtoDataComplete.java
+|   |   |               |   |   |           |       
+|   |   |               |   |   |           \---simple
+|   |   |               |   |   |                   UserPutDtoDataSimple.java
+|   |   |               |   |   |                   
+|   |   |               |   |   +---received
+|   |   |               |   |   |   \---token
+|   |   |               |   |   |       \---password
+|   |   |               |   |   |           +---project
+|   |   |               |   |   |           |       IdProjectTokenPasswordRecoveryDto.java
+|   |   |               |   |   |           |       
+|   |   |               |   |   |           \---user
+|   |   |               |   |   |                   EmailUserRecoveryDto.java
+|   |   |               |   |   |                   
+|   |   |               |   |   \---validation
+|   |   |               |   |       \---token
+|   |   |               |   |           \---password
+|   |   |               |   |                   ValidationTokenFromResetPasswordDto.java
+|   |   |               |   |                   
+|   |   |               |   \---response
+|   |   |               |       +---authentication
+|   |   |               |       |       ResponseDtoTokens.java
+|   |   |               |       |       
+|   |   |               |       +---crud
+|   |   |               |       |   +---project
+|   |   |               |       |   |       ResponseProjectDataDto.java
+|   |   |               |       |   |       
+|   |   |               |       |   +---task
+|   |   |               |       |   |       ResponseTaskDataDto.java
+|   |   |               |       |   |       
+|   |   |               |       |   \---user
+|   |   |               |       |           ResponseUserDataDto.java
+|   |   |               |       |           
+|   |   |               |       +---received
+|   |   |               |       |   \---token
+|   |   |               |       |       \---password
+|   |   |               |       |               ResponseReceivedPassword.java
+|   |   |               |       |               
+|   |   |               |       \---validation
+|   |   |               |           \---token
+|   |   |               |               \---password
+|   |   |               |                       ResponseValidationPassword.java
+|   |   |               |                       
+|   |   |               +---enums
+|   |   |               |       Priority.java
+|   |   |               |       Role.java
+|   |   |               |       Status.java
+|   |   |               |       
+|   |   |               +---exceptions
+|   |   |               |   +---handler
+|   |   |               |   |       BadRequestHandler.java
+|   |   |               |   |       DateParseHandler.java
+|   |   |               |   |       ForbiddenHandler.java
+|   |   |               |   |       HttpMessageNotReadableExceptionHandler.java
+|   |   |               |   |       InternalServerErrorHandler.java
+|   |   |               |   |       MethodArgumentNotValidExceptionHandler.java
+|   |   |               |   |       NotFoundHandler.java
+|   |   |               |   |       
+|   |   |               |   +---responsegeneric
+|   |   |               |   |       ResponseGeneric.java
+|   |   |               |   |       
+|   |   |               |   \---typo
+|   |   |               |       +---runtime
+|   |   |               |       |   +---badrequest
+|   |   |               |       |   |       BadRequestException.java
+|   |   |               |       |   |       
+|   |   |               |       |   +---dateparse
+|   |   |               |       |   |       DateParseException.java
+|   |   |               |       |   |       
+|   |   |               |       |   +---forbidden
+|   |   |               |       |   |       ForbiddenException.java
+|   |   |               |       |   |       
+|   |   |               |       |   +---internalservererror
+|   |   |               |       |   |       InternalServerErrorException.java
+|   |   |               |       |   |       
+|   |   |               |       |   \---notfound
+|   |   |               |       |           NotFoundException.java
+|   |   |               |       |           
+|   |   |               |       \---security
+|   |   |               |           \---filter
+|   |   |               |               +---response
+|   |   |               |               |       AuthenticationExceptionEntry.java
+|   |   |               |               |       
+|   |   |               |               \---typo
+|   |   |               |                   +---enabled
+|   |   |               |                   |       AccountIsDisabledException.java
+|   |   |               |                   |       
+|   |   |               |                   \---token
+|   |   |               |                       +---invalid
+|   |   |               |                       |       TokenInvalidException.java
+|   |   |               |                       |       
+|   |   |               |                       \---notfound
+|   |   |               |                               TokenNotFoundException.java
+|   |   |               |                               
+|   |   |               +---facade
+|   |   |               |   +---login
+|   |   |               |   |   \---user
+|   |   |               |   |           LoginAndGenerateTokensFacade.java
+|   |   |               |   |           
+|   |   |               |   +---received
+|   |   |               |   |   \---token
+|   |   |               |   |       \---password
+|   |   |               |   |           +---project
+|   |   |               |   |           |   +---execute
+|   |   |               |   |           |   |   \---send
+|   |   |               |   |           |   |       \---mail
+|   |   |               |   |           |   |           \---and
+|   |   |               |   |           |   |               \---register
+|   |   |               |   |           |   |                   \---data
+|   |   |               |   |           |   |                           SendGmailAndSaveProjectRegisterDataFacade.java
+|   |   |               |   |           |   |                           
+|   |   |               |   |           |   \---get
+|   |   |               |   |           |       +---entity
+|   |   |               |   |           |       |   \---by
+|   |   |               |   |           |       |       \---id
+|   |   |               |   |           |       |               GetEntityProjectByIdOrThrow.java
+|   |   |               |   |           |       |               
+|   |   |               |   |           |       \---token
+|   |   |               |   |           |           \---unique
+|   |   |               |   |           |                   GetTokenProjectPasswordUnique.java
+|   |   |               |   |           |                   
+|   |   |               |   |           \---user
+|   |   |               |   |               +---execute
+|   |   |               |   |               |   \---send
+|   |   |               |   |               |       \---mail
+|   |   |               |   |               |           \---and
+|   |   |               |   |               |               \---register
+|   |   |               |   |               |                   \---data
+|   |   |               |   |               |                           SendGmailAndSaveUserRegisterDataFacade.java
+|   |   |               |   |               |                           
+|   |   |               |   |               \---get
+|   |   |               |   |                       GetTokenUserPasswordUnique.java
+|   |   |               |   |                       
+|   |   |               |   +---register
+|   |   |               |   |   +---project
+|   |   |               |   |   |       RegisterNewProjectFacade.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---task
+|   |   |               |   |   |       RegisterNewTaskFacade.java
+|   |   |               |   |   |       
+|   |   |               |   |   \---user
+|   |   |               |   |           RegisterNewUserAndGenerateTokensAuth.java
+|   |   |               |   |           
+|   |   |               |   \---validation
+|   |   |               |       \---token
+|   |   |               |           \---password
+|   |   |               |               +---project
+|   |   |               |               |       ValidationTokenPasswordFromResetPasswordProjectFacade.java
+|   |   |               |               |       
+|   |   |               |               \---user
+|   |   |               |                       ValidationTokenPasswordFromResetPasswordUserFacade.java
+|   |   |               |                       
+|   |   |               +---mapper
+|   |   |               |   +---project
+|   |   |               |   |       ProjectMapperCore.java
+|   |   |               |   |       
+|   |   |               |   +---task
+|   |   |               |   |       TaskMapperCore.java
+|   |   |               |   |       
+|   |   |               |   \---user
+|   |   |               |           UserMapperCore.java
+|   |   |               |           
+|   |   |               +---model
+|   |   |               |   +---project
+|   |   |               |   |       Project.java
+|   |   |               |   |       
+|   |   |               |   +---register
+|   |   |               |   |   \---token
+|   |   |               |   |       \---password
+|   |   |               |   |           +---project
+|   |   |               |   |           |       RegisterPasswordProject.java
+|   |   |               |   |           |       
+|   |   |               |   |           \---user
+|   |   |               |   |                   RegisterPasswordUser.java
+|   |   |               |   |                   
+|   |   |               |   +---task
+|   |   |               |   |       Task.java
+|   |   |               |   |       
+|   |   |               |   \---user
+|   |   |               |           User.java
+|   |   |               |           
+|   |   |               +---repository
+|   |   |               |   +---project
+|   |   |               |   |       ProjectRepository.java
+|   |   |               |   |       
+|   |   |               |   +---register
+|   |   |               |   |   \---password
+|   |   |               |   |       +---project
+|   |   |               |   |       |       RegisterProjectPasswordRepository.java
+|   |   |               |   |       |       
+|   |   |               |   |       \---user
+|   |   |               |   |               RegisterUserPasswordRepository.java
+|   |   |               |   |               
+|   |   |               |   +---task
+|   |   |               |   |       TaskRepository.java
+|   |   |               |   |       
+|   |   |               |   \---user
+|   |   |               |           UserRepository.java
+|   |   |               |           
+|   |   |               +---security
+|   |   |               |   +---cfg
+|   |   |               |   |       SecurityFilterConfiguration.java
+|   |   |               |   |       
+|   |   |               |   +---filter
+|   |   |               |   |       JwtFilter.java
+|   |   |               |   |       
+|   |   |               |   \---token
+|   |   |               |       +---generate
+|   |   |               |       |   +---key
+|   |   |               |       |   |       GenerateSecretKeyConverted.java
+|   |   |               |       |   |       
+|   |   |               |       |   \---token
+|   |   |               |       |       +---access
+|   |   |               |       |       |       GenerateTokenAccess.java
+|   |   |               |       |       |       
+|   |   |               |       |       \---refresh
+|   |   |               |       |               GenerateTokenRefresh.java
+|   |   |               |       |               
+|   |   |               |       +---get
+|   |   |               |       |   \---email
+|   |   |               |       |           GetEmailByPayload.java
+|   |   |               |       |           
+|   |   |               |       \---validation
+|   |   |               |           \---token
+|   |   |               |                   TokenIsValid.java
+|   |   |               |                   
+|   |   |               +---send
+|   |   |               |   \---email
+|   |   |               |           SendEmail.java
+|   |   |               |           
+|   |   |               +---service
+|   |   |               |   +---authentication
+|   |   |               |   |   +---implementations
+|   |   |               |   |   |       CustomUserDetails.java
+|   |   |               |   |   |       CustomUserDetailsService.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---login
+|   |   |               |   |   |   +---token
+|   |   |               |   |   |   |       GenerateTokensLoginService.java
+|   |   |               |   |   |   |       
+|   |   |               |   |   |   \---user
+|   |   |               |   |   |           LoginUserService.java
+|   |   |               |   |   |           
+|   |   |               |   |   \---register
+|   |   |               |   |       +---token
+|   |   |               |   |       |       GenerateTokensRegisterService.java
+|   |   |               |   |       |       
+|   |   |               |   |       +---user
+|   |   |               |   |       |       UserRegisterService.java
+|   |   |               |   |       |       
+|   |   |               |   |       \---validation
+|   |   |               |   |               EmailAndUsernameIsUnique.java
+|   |   |               |   |               
+|   |   |               |   +---crud
+|   |   |               |   |   +---project
+|   |   |               |   |   |       ProjectCrudService.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---task
+|   |   |               |   |   |       TaskCrudService.java
+|   |   |               |   |   |       
+|   |   |               |   |   \---user
+|   |   |               |   |           UserCrudService.java
+|   |   |               |   |           
+|   |   |               |   +---received
+|   |   |               |   |   \---token
+|   |   |               |   |       \---password
+|   |   |               |   |           +---project
+|   |   |               |   |           |   \---save
+|   |   |               |   |           |       \---register
+|   |   |               |   |           |               SaveRegisterProjectPasswordService.java
+|   |   |               |   |           |               
+|   |   |               |   |           \---user
+|   |   |               |   |               +---save
+|   |   |               |   |               |   \---register
+|   |   |               |   |               |           SaveRegisterUserPasswordService.java
+|   |   |               |   |               |           
+|   |   |               |   |               \---validation
+|   |   |               |   |                       ValidationEmailUserExistsInEntityInDb.java
+|   |   |               |   |                       
+|   |   |               |   \---validation
+|   |   |               |       \---token
+|   |   |               |           \---password
+|   |   |               |               +---project
+|   |   |               |               |   +---get
+|   |   |               |               |   |   \---register
+|   |   |               |               |   |       \---by
+|   |   |               |               |   |           \---token
+|   |   |               |               |   |                   GetRegisterProjectByToken.java
+|   |   |               |               |   |                   
+|   |   |               |               |   +---invalidate
+|   |   |               |               |   |   \---register
+|   |   |               |               |   |           InvalidateRegisterProjectAfterTokenUsed.java
+|   |   |               |               |   |           
+|   |   |               |               |   \---reset
+|   |   |               |               |       \---password
+|   |   |               |               |               ResetPasswordProjectAndInvalidateTokenUsed.java
+|   |   |               |               |               
+|   |   |               |               \---user
+|   |   |               |                   +---get
+|   |   |               |                   |   \---register
+|   |   |               |                   |       \---by
+|   |   |               |                   |           \---token
+|   |   |               |                   |                   GetRegisterUserByToken.java
+|   |   |               |                   |                   
+|   |   |               |                   +---invalidate
+|   |   |               |                   |   \---register
+|   |   |               |                   |           InvalidateRegisterUserAfterTokenUsed.java
+|   |   |               |                   |           
+|   |   |               |                   \---reset
+|   |   |               |                       \---password
+|   |   |               |                               ResetPasswordUserAndInvalidateTokenUsed.java
+|   |   |               |                               
+|   |   |               \---utils
+|   |   |                   +---build
+|   |   |                   |   \---message
+|   |   |                   |       \---email
+|   |   |                   |           \---html
+|   |   |                   |                   BuildMessageInHtml.java
+|   |   |                   |                   
+|   |   |                   +---encryptedpassword
+|   |   |                   |   |   EncryptedPassword.java
+|   |   |                   |   |   
+|   |   |                   |   \---cfg
+|   |   |                   |           PasswordConfiguration.java
+|   |   |                   |           
+|   |   |                   +---generate
+|   |   |                   |   +---token
+|   |   |                   |   |   \---password
+|   |   |                   |   |       \---recovery
+|   |   |                   |   |               GenerateTokenPasswordRecovery.java
+|   |   |                   |   |               
+|   |   |                   |   \---uri
+|   |   |                   |           GenerateUri.java
+|   |   |                   |           
+|   |   |                   +---get
+|   |   |                   |   \---username
+|   |   |                   |       \---by
+|   |   |                   |           \---context
+|   |   |                   |               \---security
+|   |   |                   |                       GetUsernameByContextHolder.java
+|   |   |                   |                       
+|   |   |                   +---pageable
+|   |   |                   |   +---factory
+|   |   |                   |   |       PageableFactoryByClassReceived.java
+|   |   |                   |   |       
+|   |   |                   |   +---fields
+|   |   |                   |   |   \---name
+|   |   |                   |   |       \---get
+|   |   |                   |   |           \---use
+|   |   |                   |   |               \---reflect
+|   |   |                   |   |                   +---project
+|   |   |                   |   |                   |       FieldsNameProject.java
+|   |   |                   |   |                   |       
+|   |   |                   |   |                   \---user
+|   |   |                   |   |                           FieldsNameUser.java
+|   |   |                   |   |                           
+|   |   |                   |   +---implementations
+|   |   |                   |   |   +---project
+|   |   |                   |   |   |       ImplementPageableProject.java
+|   |   |                   |   |   |       
+|   |   |                   |   |   \---user
+|   |   |                   |   |           ImplementPageableUser.java
+|   |   |                   |   |           
+|   |   |                   |   +---interfaces
+|   |   |                   |   |       PageableGenerator.java
+|   |   |                   |   |       
+|   |   |                   |   \---logic
+|   |   |                   |       \---default_
+|   |   |                   |               PageableLogicDefault.java
+|   |   |                   |               
+|   |   |                   +---parse
+|   |   |                   |   \---data
+|   |   |                   |       \---from
+|   |   |                   |           \---iso
+|   |   |                   |               \---american
+|   |   |                   |                       ParseDataFromIsoAmerican.java
+|   |   |                   |                       
+|   |   |                   \---validation
+|   |   |                       +---password
+|   |   |                       |   \---bycrypt
+|   |   |                       |       \---hash
+|   |   |                       |           \---is
+|   |   |                       |               \---equals
+|   |   |                       |                       ValidationIfPasswordHashByCryptIsEquals.java
+|   |   |                       |                       
+|   |   |                       +---token
+|   |   |                       |   \---from
+|   |   |                       |       \---reset
+|   |   |                       |           \---password
+|   |   |                       |               \---is
+|   |   |                       |                   +---expired
+|   |   |                       |                   |       TokenPasswordIsExpired.java
+|   |   |                       |                   |       
+|   |   |                       |                   \---used
+|   |   |                       |                           TokenPasswordIsUsed.java
+|   |   |                       |                           
+|   |   |                       \---user
+|   |   |                           +---is
+|   |   |                           |   +---creator
+|   |   |                           |   |   +---project
+|   |   |                           |   |   |       UserRequestIsCreatorProject.java
+|   |   |                           |   |   |       
+|   |   |                           |   |   \---task
+|   |   |                           |   |           UserRequestIsCreatorTask.java
+|   |   |                           |   |           
+|   |   |                           |   \---role
+|   |   |                           |       \---admin
+|   |   |                           |               ValidationIfUserIsRoleAdmin.java
+|   |   |                           |               
+|   |   |                           \---put
+|   |   |                               \---them
+|   |   |                                   \---selves
+|   |   |                                           ValidationIfUserEffectPutThemSelves.java
+|   |   |                                           
+|   |   \---resources
+|   |       |   application.yaml
+|   |       |   
+|   |       +---db
+|   |       |   \---migration
+|   |       |           V1__Create_Table_Users.sql
+|   |       |           V2__Create_Table_Register_Password_Users.sql
+|   |       |           V3__Create_Table_Projects.sql
+|   |       |           V4__Create_Table_Register_Password_Projects.sql
+|   |       |           
+|   |       +---static
+|   |       \---templates
+|   \---test
+|       +---java
+|       |   \---com
+|       |       \---example
+|       |           \---desafio
+|       |               |   DesafioApplicationTests.java
+|       |               |   
+|       |               \---service
+|       |                   +---authentication
+|       |                   |   +---login
+|       |                   |   |   \---user
+|       |                   |   |           LoginUserServiceTest.java
+|       |                   |   |           
+|       |                   |   \---register
+|       |                   |       \---user
+|       |                   |               UserRegisterServiceTest.java
+|       |                   |               
+|       |                   \---crud
+|       |                       +---project
+|       |                       |       ProjectCrudServiceTest.java
+|       |                       |       
+|       |                       \---user
+|       |                               UserCrudServiceTest.java
+|       |                               
+|       \---resources
+|               application-test-.yml
+|               
+\---target
+    |   desafio-0.0.1-SNAPSHOT.jar
+    |   desafio-0.0.1-SNAPSHOT.jar.original
+    |   
+    +---classes
+    |   |   application.yaml
+    |   |   
+    |   +---com
+    |   |   \---example
+    |   |       \---desafio
+    |   |           |   DesafioApplication.class
+    |   |           |   
+    |   |           +---cfg
+    |   |           |   \---admin
+    |   |           |       \---initialzer
+    |   |           |           \---account
+    |   |           |                   InitializerAdminAccount.class
+    |   |           |                   
+    |   |           +---controller
+    |   |           |   +---authentication
+    |   |           |   |       AuthUserController.class
+    |   |           |   |       
+    |   |           |   +---crud
+    |   |           |   |   +---project
+    |   |           |   |   |       ProjectCrudController.class
+    |   |           |   |   |       
+    |   |           |   |   \---user
+    |   |           |   |           UserCrudController.class
+    |   |           |   |           
+    |   |           |   +---received
+    |   |           |   |   \---token
+    |   |           |   |       \---password
+    |   |           |   |           +---project
+    |   |           |   |           |       ReceivedPasswordProjectController.class
+    |   |           |   |           |       
+    |   |           |   |           \---user
+    |   |           |   |                   ReceivedPasswordUserUserController.class
+    |   |           |   |                   
+    |   |           |   \---validate
+    |   |           |       \---token
+    |   |           |           \---password
+    |   |           |               +---project
+    |   |           |               |       ValidatePasswordProjectController.class
+    |   |           |               |       
+    |   |           |               \---user
+    |   |           |                       ValidationTokenPasswordUserUserController.class
+    |   |           |                       
+    |   |           +---docs
+    |   |           |   +---authetication
+    |   |           |   |       AuthUserDoc.class
+    |   |           |   |       
+    |   |           |   +---crud
+    |   |           |   |   +---project
+    |   |           |   |   |       ProjectCrudDoc.class
+    |   |           |   |   |       
+    |   |           |   |   \---user
+    |   |           |   |           UserCrudDoc.class
+    |   |           |   |           
+    |   |           |   +---received
+    |   |           |   |   \---token
+    |   |           |   |       \---password
+    |   |           |   |           +---project
+    |   |           |   |           |       ReceivedPasswordProjectDoc.class
+    |   |           |   |           |       
+    |   |           |   |           \---user
+    |   |           |   |                   ReceivedPasswordUserDoc.class
+    |   |           |   |                   
+    |   |           |   \---validate
+    |   |           |       \---token
+    |   |           |           \---password
+    |   |           |               +---project
+    |   |           |               |       ValidationTokenPasswordProjectDoc.class
+    |   |           |               |       
+    |   |           |               \---user
+    |   |           |                       ValidationTokenPasswordUserDoc.class
+    |   |           |                       
+    |   |           +---dto
+    |   |           |   +---request
+    |   |           |   |   +---authentication
+    |   |           |   |   |       UserLoginDto.class
+    |   |           |   |   |       UserRegisterDto.class
+    |   |           |   |   |       
+    |   |           |   |   +---crud
+    |   |           |   |   |   +---project
+    |   |           |   |   |   |   +---post
+    |   |           |   |   |   |   |       ProjectPostDto.class
+    |   |           |   |   |   |   |       
+    |   |           |   |   |   |   \---put
+    |   |           |   |   |   |           ProjectPutDto.class
+    |   |           |   |   |   |           
+    |   |           |   |   |   \---user
+    |   |           |   |   |       +---patch
+    |   |           |   |   |       |       UserPatchDto.class
+    |   |           |   |   |       |       
+    |   |           |   |   |       \---put
+    |   |           |   |   |           +---complete
+    |   |           |   |   |           |       UserPutDtoDataComplete.class
+    |   |           |   |   |           |       
+    |   |           |   |   |           \---simple
+    |   |           |   |   |                   UserPutDtoDataSimple.class
+    |   |           |   |   |                   
+    |   |           |   |   +---received
+    |   |           |   |   |   \---token
+    |   |           |   |   |       \---password
+    |   |           |   |   |           +---project
+    |   |           |   |   |           |       IdProjectTokenPasswordRecoveryDto.class
+    |   |           |   |   |           |       
+    |   |           |   |   |           \---user
+    |   |           |   |   |                   EmailUserRecoveryDto.class
+    |   |           |   |   |                   
+    |   |           |   |   \---validation
+    |   |           |   |       \---token
+    |   |           |   |           \---password
+    |   |           |   |                   ValidationTokenFromResetPasswordDto.class
+    |   |           |   |                   
+    |   |           |   \---response
+    |   |           |       +---authentication
+    |   |           |       |       ResponseDtoTokens.class
+    |   |           |       |       
+    |   |           |       +---crud
+    |   |           |       |   +---project
+    |   |           |       |   |       ResponseProjectDataDto.class
+    |   |           |       |   |       
+    |   |           |       |   \---user
+    |   |           |       |           ResponseUserDataDto.class
+    |   |           |       |           
+    |   |           |       +---received
+    |   |           |       |   \---token
+    |   |           |       |       \---password
+    |   |           |       |               ResponseReceivedPassword.class
+    |   |           |       |               
+    |   |           |       \---validation
+    |   |           |           \---token
+    |   |           |               \---password
+    |   |           |                       ResponseValidationPassword.class
+    |   |           |                       
+    |   |           +---enums
+    |   |           |       Priority.class
+    |   |           |       Role.class
+    |   |           |       Status.class
+    |   |           |       
+    |   |           +---exceptions
+    |   |           |   +---handler
+    |   |           |   |       BadRequestHandler.class
+    |   |           |   |       DateParseHandler.class
+    |   |           |   |       ForbiddenHandler.class
+    |   |           |   |       HttpMessageNotReadableExceptionHandler.class
+    |   |           |   |       InternalServerErrorHandler.class
+    |   |           |   |       MethodArgumentNotValidExceptionHandler.class
+    |   |           |   |       NotFoundHandler.class
+    |   |           |   |       
+    |   |           |   +---responsegeneric
+    |   |           |   |       ResponseGeneric.class
+    |   |           |   |       
+    |   |           |   \---typo
+    |   |           |       +---runtime
+    |   |           |       |   +---badrequest
+    |   |           |       |   |       BadRequestException.class
+    |   |           |       |   |       
+    |   |           |       |   +---dateparse
+    |   |           |       |   |       DateParseException.class
+    |   |           |       |   |       
+    |   |           |       |   +---forbidden
+    |   |           |       |   |       ForbiddenException.class
+    |   |           |       |   |       
+    |   |           |       |   +---internalservererror
+    |   |           |       |   |       InternalServerErrorException.class
+    |   |           |       |   |       
+    |   |           |       |   \---notfound
+    |   |           |       |           NotFoundException.class
+    |   |           |       |           
+    |   |           |       \---security
+    |   |           |           \---filter
+    |   |           |               +---response
+    |   |           |               |       AuthenticationExceptionEntry.class
+    |   |           |               |       
+    |   |           |               \---typo
+    |   |           |                   +---enabled
+    |   |           |                   |       AccountIsDisabledException.class
+    |   |           |                   |       
+    |   |           |                   \---token
+    |   |           |                       +---invalid
+    |   |           |                       |       TokenInvalidException.class
+    |   |           |                       |       
+    |   |           |                       \---notfound
+    |   |           |                               TokenNotFoundException.class
+    |   |           |                               
+    |   |           +---facade
+    |   |           |   +---login
+    |   |           |   |   \---user
+    |   |           |   |           LoginAndGenerateTokensFacade.class
+    |   |           |   |           
+    |   |           |   +---received
+    |   |           |   |   \---token
+    |   |           |   |       \---password
+    |   |           |   |           +---project
+    |   |           |   |           |   +---execute
+    |   |           |   |           |   |   \---send
+    |   |           |   |           |   |       \---mail
+    |   |           |   |           |   |           \---and
+    |   |           |   |           |   |               \---register
+    |   |           |   |           |   |                   \---data
+    |   |           |   |           |   |                           SendGmailAndSaveProjectRegisterDataFacade.class
+    |   |           |   |           |   |                           
+    |   |           |   |           |   \---get
+    |   |           |   |           |       +---entity
+    |   |           |   |           |       |   \---by
+    |   |           |   |           |       |       \---id
+    |   |           |   |           |       |               GetEntityProjectByIdOrThrow.class
+    |   |           |   |           |       |               
+    |   |           |   |           |       \---token
+    |   |           |   |           |           \---unique
+    |   |           |   |           |                   GetTokenProjectPasswordUnique.class
+    |   |           |   |           |                   
+    |   |           |   |           \---user
+    |   |           |   |               +---execute
+    |   |           |   |               |   \---send
+    |   |           |   |               |       \---mail
+    |   |           |   |               |           \---and
+    |   |           |   |               |               \---register
+    |   |           |   |               |                   \---data
+    |   |           |   |               |                           SendGmailAndSaveUserRegisterDataFacade.class
+    |   |           |   |               |                           
+    |   |           |   |               \---get
+    |   |           |   |                       GetTokenUserPasswordUnique.class
+    |   |           |   |                       
+    |   |           |   +---register
+    |   |           |   |   +---project
+    |   |           |   |   |       RegisterNewProjectFacade.class
+    |   |           |   |   |       
+    |   |           |   |   \---user
+    |   |           |   |           RegisterAndGenerateTokensFacade.class
+    |   |           |   |           
+    |   |           |   \---validation
+    |   |           |       \---token
+    |   |           |           \---password
+    |   |           |               +---project
+    |   |           |               |       ValidationTokenPasswordFromResetPasswordProjectFacade.class
+    |   |           |               |       
+    |   |           |               \---user
+    |   |           |                       ValidationTokenPasswordFromResetPasswordUserFacade.class
+    |   |           |                       
+    |   |           +---mapper
+    |   |           |   +---project
+    |   |           |   |       ProjectMapperCore.class
+    |   |           |   |       ProjectMapperCoreImpl.class
+    |   |           |   |       
+    |   |           |   \---user
+    |   |           |           UserMapperCore.class
+    |   |           |           UserMapperCoreImpl.class
+    |   |           |           
+    |   |           +---model
+    |   |           |   +---project
+    |   |           |   |       Project.class
+    |   |           |   |       
+    |   |           |   +---register
+    |   |           |   |   \---token
+    |   |           |   |       \---password
+    |   |           |   |           +---project
+    |   |           |   |           |       RegisterPasswordProject.class
+    |   |           |   |           |       
+    |   |           |   |           \---user
+    |   |           |   |                   RegisterPasswordUser.class
+    |   |           |   |                   
+    |   |           |   +---task
+    |   |           |   |       Task.class
+    |   |           |   |       
+    |   |           |   \---user
+    |   |           |           User.class
+    |   |           |           
+    |   |           +---repository
+    |   |           |   +---project
+    |   |           |   |       ProjectRepository.class
+    |   |           |   |       
+    |   |           |   +---register
+    |   |           |   |   \---password
+    |   |           |   |       +---project
+    |   |           |   |       |       RegisterProjectPasswordRepository.class
+    |   |           |   |       |       
+    |   |           |   |       \---user
+    |   |           |   |               RegisterUserPasswordRepository.class
+    |   |           |   |               
+    |   |           |   \---user
+    |   |           |           UserRepository.class
+    |   |           |           
+    |   |           +---security
+    |   |           |   +---cfg
+    |   |           |   |       SecurityFilterConfiguration.class
+    |   |           |   |       
+    |   |           |   +---filter
+    |   |           |   |       JwtFilter.class
+    |   |           |   |       
+    |   |           |   \---token
+    |   |           |       +---generate
+    |   |           |       |   +---key
+    |   |           |       |   |       GenerateSecretKeyConverted.class
+    |   |           |       |   |       
+    |   |           |       |   \---token
+    |   |           |       |       +---access
+    |   |           |       |       |       GenerateTokenAccess.class
+    |   |           |       |       |       
+    |   |           |       |       \---refresh
+    |   |           |       |               GenerateTokenRefresh.class
+    |   |           |       |               
+    |   |           |       +---get
+    |   |           |       |   \---email
+    |   |           |       |           GetEmailByPayload.class
+    |   |           |       |           
+    |   |           |       \---validation
+    |   |           |           \---token
+    |   |           |                   TokenIsValid.class
+    |   |           |                   
+    |   |           +---send
+    |   |           |   \---email
+    |   |           |           SendEmail.class
+    |   |           |           
+    |   |           +---service
+    |   |           |   +---authentication
+    |   |           |   |   +---implementations
+    |   |           |   |   |       CustomUserDetails.class
+    |   |           |   |   |       CustomUserDetailsService.class
+    |   |           |   |   |       
+    |   |           |   |   +---login
+    |   |           |   |   |   +---token
+    |   |           |   |   |   |       GenerateTokensLoginService.class
+    |   |           |   |   |   |       
+    |   |           |   |   |   \---user
+    |   |           |   |   |           LoginUserService.class
+    |   |           |   |   |           
+    |   |           |   |   \---register
+    |   |           |   |       +---token
+    |   |           |   |       |       GenerateTokensRegisterService.class
+    |   |           |   |       |       
+    |   |           |   |       +---user
+    |   |           |   |       |       UserRegisterService.class
+    |   |           |   |       |       
+    |   |           |   |       \---validation
+    |   |           |   |               EmailAndUsernameIsUnique.class
+    |   |           |   |               
+    |   |           |   +---crud
+    |   |           |   |   +---project
+    |   |           |   |   |       ProjectCrudService.class
+    |   |           |   |   |       
+    |   |           |   |   \---user
+    |   |           |   |           UserCrudService.class
+    |   |           |   |           
+    |   |           |   +---received
+    |   |           |   |   \---token
+    |   |           |   |       \---password
+    |   |           |   |           +---project
+    |   |           |   |           |   \---save
+    |   |           |   |           |       \---register
+    |   |           |   |           |               SaveRegisterProjectPasswordService.class
+    |   |           |   |           |               
+    |   |           |   |           \---user
+    |   |           |   |               +---save
+    |   |           |   |               |   \---register
+    |   |           |   |               |           SaveRegisterUserPasswordService.class
+    |   |           |   |               |           
+    |   |           |   |               \---validation
+    |   |           |   |                       ValidationEmailUserExistsInEntityInDb.class
+    |   |           |   |                       
+    |   |           |   \---validation
+    |   |           |       \---token
+    |   |           |           \---password
+    |   |           |               +---project
+    |   |           |               |   +---get
+    |   |           |               |   |   \---register
+    |   |           |               |   |       \---by
+    |   |           |               |   |           \---token
+    |   |           |               |   |                   GetRegisterProjectByToken.class
+    |   |           |               |   |                   
+    |   |           |               |   +---invalidate
+    |   |           |               |   |   \---register
+    |   |           |               |   |           InvalidateRegisterProjectAfterTokenUsed.class
+    |   |           |               |   |           
+    |   |           |               |   \---reset
+    |   |           |               |       \---password
+    |   |           |               |               ResetPasswordProjectAndInvalidateTokenUsed.class
+    |   |           |               |               
+    |   |           |               \---user
+    |   |           |                   +---get
+    |   |           |                   |   \---register
+    |   |           |                   |       \---by
+    |   |           |                   |           \---token
+    |   |           |                   |                   GetRegisterUserByToken.class
+    |   |           |                   |                   
+    |   |           |                   +---invalidate
+    |   |           |                   |   \---register
+    |   |           |                   |           InvalidateRegisterUserAfterTokenUsed.class
+    |   |           |                   |           
+    |   |           |                   \---reset
+    |   |           |                       \---password
+    |   |           |                               ResetPasswordUserAndInvalidateTokenUsed.class
+    |   |           |                               
+    |   |           \---utils
+    |   |               +---build
+    |   |               |   \---message
+    |   |               |       \---email
+    |   |               |           \---html
+    |   |               |                   BuildMessageInHtml.class
+    |   |               |                   
+    |   |               +---encryptedpassword
+    |   |               |   |   EncryptedPassword.class
+    |   |               |   |   
+    |   |               |   \---cfg
+    |   |               |           PasswordConfiguration.class
+    |   |               |           
+    |   |               +---generate
+    |   |               |   +---token
+    |   |               |   |   \---password
+    |   |               |   |       \---recovery
+    |   |               |   |               GenerateTokenPasswordRecovery.class
+    |   |               |   |               
+    |   |               |   \---uri
+    |   |               |           GenerateUri.class
+    |   |               |           
+    |   |               +---get
+    |   |               |   \---username
+    |   |               |       \---by
+    |   |               |           \---context
+    |   |               |               \---security
+    |   |               |                       GetUsernameByContextHolder.class
+    |   |               |                       
+    |   |               +---pageable
+    |   |               |   +---factory
+    |   |               |   |       PageableFactoryByClassReceived.class
+    |   |               |   |       
+    |   |               |   +---fields
+    |   |               |   |   \---name
+    |   |               |   |       \---get
+    |   |               |   |           \---use
+    |   |               |   |               \---reflect
+    |   |               |   |                   +---project
+    |   |               |   |                   |       FieldsNameProject.class
+    |   |               |   |                   |       
+    |   |               |   |                   \---user
+    |   |               |   |                           FieldsNameUser.class
+    |   |               |   |                           
+    |   |               |   +---implementations
+    |   |               |   |   +---project
+    |   |               |   |   |       ImplementPageableProject.class
+    |   |               |   |   |       
+    |   |               |   |   \---user
+    |   |               |   |           ImplementPageableUser.class
+    |   |               |   |           
+    |   |               |   +---interfaces
+    |   |               |   |       PageableGenerator.class
+    |   |               |   |       
+    |   |               |   \---logic
+    |   |               |       \---default_
+    |   |               |               PageableLogicDefault.class
+    |   |               |               
+    |   |               +---parse
+    |   |               |   \---data
+    |   |               |       \---from
+    |   |               |           \---iso
+    |   |               |               \---american
+    |   |               |                       ParseDataFromIsoAmerican.class
+    |   |               |                       
+    |   |               \---validation
+    |   |                   +---token
+    |   |                   |   \---from
+    |   |                   |       \---reset
+    |   |                   |           \---password
+    |   |                   |               \---is
+    |   |                   |                   +---expired
+    |   |                   |                   |       TokenPasswordIsExpired.class
+    |   |                   |                   |       
+    |   |                   |                   \---used
+    |   |                   |                           TokenPasswordIsUsed.class
+    |   |                   |                           
+    |   |                   \---user
+    |   |                       +---is
+    |   |                       |   +---creator
+    |   |                       |   |   \---project
+    |   |                       |   |           UserRequestIsCreatorProject.class
+    |   |                       |   |           
+    |   |                       |   \---role
+    |   |                       |       \---admin
+    |   |                       |               ValidationIfUserIsRoleAdmin.class
+    |   |                       |               
+    |   |                       \---put
+    |   |                           \---them
+    |   |                               \---selves
+    |   |                                       ValidationIfUserEffectPutThemSelves.class
+    |   |                                       
+    |   \---db
+    |       \---migration
+    |               V1__Create_Table_Users.sql
+    |               V2__Create_Table_Register_Password_Users.sql
+    |               V3__Create_Table_Projects.sql
+    |               V4__Create_Table_Register_Password_Projects.sql
+    |               
+    +---generated-sources
+    |   \---annotations
+    |       \---com
+    |           \---example
+    |               \---desafio
+    |                   \---mapper
+    |                       +---project
+    |                       |       ProjectMapperCoreImpl.java
+    |                       |       
+    |                       \---user
+    |                               UserMapperCoreImpl.java
+    |                               
+    +---generated-test-sources
+    |   \---test-annotations
+    +---maven-archiver
+    |       pom.properties
+    |       
+    +---maven-status
+    |   \---maven-compiler-plugin
+    |       +---compile
+    |       |   \---default-compile
+    |       |           createdFiles.lst
+    |       |           inputFiles.lst
+    |       |           
+    |       \---testCompile
+    |           \---default-testCompile
+    |                   createdFiles.lst
+    |                   inputFiles.lst
+    |                   
+    +---surefire-reports
+    |       com.example.desafio.DesafioApplicationTests.txt
+    |       com.example.desafio.service.authentication.login.user.LoginUserServiceTest.txt
+    |       com.example.desafio.service.authentication.register.user.UserRegisterServiceTest.txt
+    |       com.example.desafio.service.crud.project.ProjectCrudServiceTest.txt
+    |       com.example.desafio.service.crud.user.UserCrudControllerServiceTest.txt
+    |       TEST-com.example.desafio.DesafioApplicationTests.xml
+    |       TEST-com.example.desafio.service.authentication.login.user.LoginUserServiceTest.xml
+    |       TEST-com.example.desafio.service.authentication.register.user.UserRegisterServiceTest.xml
+    |       TEST-com.example.desafio.service.crud.project.ProjectCrudServiceTest.xml
+    |       TEST-com.example.desafio.service.crud.user.UserCrudControllerServiceTest.xml
+    |       
+    \---test-classes
+        |   application-test-.yml
+        |   
+        \---com
+            \---example
+                \---desafio
+                    |   DesafioApplicationTests.class
+                    |   
+                    \---service
+                        +---authentication
+                        |   +---login
+                        |   |   \---user
+                        |   |           LoginUserServiceTest.class
+                        |   |           
+                        |   \---register
+                        |       \---user
+                        |               UserRegisterServiceTest.class
+                        |               
+                        \---crud
+                            +---project
+                            |       ProjectCrudServiceTest.class
+                            |       
+                            \---user
+                                    UserCrudServiceTest.class
+                                    
