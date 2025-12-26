@@ -72,8 +72,28 @@ class ProjectCrudServiceTest {
         String order="id";
         String direction="asc";
 
+        User user1= new User();
+        user1.setId(1L);
+        user1.setFirstName("firstName");
+        user1.setLastName("lastName");
+        user1.setEmail("email");
+        user1.setEnabled(true);
+        user1.setRole(Role.ROLE_USER);
+        user1.setUsername("username");
+        user1.setPassword("passwordEncrypted");
+
+        User user2= new User();
+        user2.setId(1L);
+        user2.setFirstName("firstName");
+        user2.setLastName("lastName");
+        user2.setEmail("email");
+        user2.setEnabled(true);
+        user2.setRole(Role.ROLE_USER);
+        user2.setUsername("username");
+        user2.setPassword("passwordEncrypted");
+
         Project project1=new Project();
-        project1.setProjectCreator("creator");
+        project1.setUser(user1);
         project1.setEndDate(LocalDate.of(2025,1,1));
         project1.setNameProject("nameProject");
         project1.setId(1L);
@@ -82,7 +102,7 @@ class ProjectCrudServiceTest {
         project1.setStartDate(LocalDate.of(2025,1,1));
 
         Project project2=new Project();
-        project2.setProjectCreator("creator");
+        project2.setUser(user2);
         project2.setEndDate(LocalDate.of(2025,1,1));
         project2.setNameProject("nameProject");
         project2.setId(2L);
@@ -96,14 +116,14 @@ class ProjectCrudServiceTest {
 
 
         ResponseProjectDataDto responseProjectDataDto1= new ResponseProjectDataDto();
-        responseProjectDataDto1.setProjectCreator(project1.getProjectCreator());
+        responseProjectDataDto1.setProjectCreator(project1.getUser().getUsername());
         responseProjectDataDto1.setDescription(project1.getDescription());
         responseProjectDataDto1.setNameProject(project1.getNameProject());
         responseProjectDataDto1.setStartDate(project1.getStartDate());
         responseProjectDataDto1.setId(project1.getId());
 
         ResponseProjectDataDto responseProjectDataDto2=new ResponseProjectDataDto();
-        responseProjectDataDto2.setProjectCreator(project2.getProjectCreator());
+        responseProjectDataDto2.setProjectCreator(project2.getUser().getUsername());
         responseProjectDataDto2.setDescription(project2.getDescription());
         responseProjectDataDto2.setNameProject(project2.getNameProject());
         responseProjectDataDto2.setStartDate(project2.getStartDate());
@@ -125,8 +145,19 @@ class ProjectCrudServiceTest {
     void getByIdSuccess(){
         Long idRequest=1L;
 
+
+        User user1= new User();
+        user1.setId(1L);
+        user1.setFirstName("firstName");
+        user1.setLastName("lastName");
+        user1.setEmail("email");
+        user1.setEnabled(true);
+        user1.setRole(Role.ROLE_USER);
+        user1.setUsername("username");
+        user1.setPassword("passwordEncrypted");
+
         Project project1=new Project();
-        project1.setProjectCreator("creator");
+        project1.setUser(user1);
         project1.setEndDate(LocalDate.of(2025,1,1));
         project1.setNameProject("nameProject");
         project1.setId(1L);
@@ -135,7 +166,7 @@ class ProjectCrudServiceTest {
         project1.setStartDate(LocalDate.of(2025,1,1));
 
         ResponseProjectDataDto responseProjectDataDto1= new ResponseProjectDataDto();
-        responseProjectDataDto1.setProjectCreator(project1.getProjectCreator());
+        responseProjectDataDto1.setProjectCreator(project1.getUser().getUsername());
         responseProjectDataDto1.setDescription(project1.getDescription());
         responseProjectDataDto1.setNameProject(project1.getNameProject());
         responseProjectDataDto1.setStartDate(project1.getStartDate());
@@ -155,8 +186,18 @@ class ProjectCrudServiceTest {
     void getByIdFailerPerIdNotFoundInDb(){
         Long idRequest=2L;
 
+        User user1= new User();
+        user1.setId(1L);
+        user1.setFirstName("firstName");
+        user1.setLastName("lastName");
+        user1.setEmail("email");
+        user1.setEnabled(true);
+        user1.setRole(Role.ROLE_USER);
+        user1.setUsername("username");
+        user1.setPassword("passwordEncrypted");
+
         Project project1=new Project();
-        project1.setProjectCreator("creator");
+        project1.setUser(user1);
         project1.setEndDate(LocalDate.of(2025,1,1));
         project1.setNameProject("nameProject");
         project1.setId(1L);
@@ -165,7 +206,7 @@ class ProjectCrudServiceTest {
         project1.setStartDate(LocalDate.of(2025,1,1));
 
         ResponseProjectDataDto responseProjectDataDto1= new ResponseProjectDataDto();
-        responseProjectDataDto1.setProjectCreator(project1.getProjectCreator());
+        responseProjectDataDto1.setProjectCreator(project1.getUser().getUsername());
         responseProjectDataDto1.setDescription(project1.getDescription());
         responseProjectDataDto1.setNameProject(project1.getNameProject());
         responseProjectDataDto1.setStartDate(project1.getStartDate());
@@ -179,8 +220,20 @@ class ProjectCrudServiceTest {
 
     @Test
     void addNewProjectSuccess() {
+
+
+        User user1= new User();
+        user1.setId(1L);
+        user1.setFirstName("firstName");
+        user1.setLastName("lastName");
+        user1.setEmail("email");
+        user1.setEnabled(true);
+        user1.setRole(Role.ROLE_USER);
+        user1.setUsername("username");
+        user1.setPassword("passwordEncrypted");
+
         Project entity=new Project();
-        entity.setProjectCreator("creator");
+        entity.setUser(user1);
         entity.setEndDate(LocalDate.of(2025,1,1));
         entity.setNameProject("nameProject");
         entity.setDescription("description");
@@ -189,7 +242,7 @@ class ProjectCrudServiceTest {
 
         Project entitySaved=new Project();
         entitySaved.setId(1L);
-        entitySaved.setProjectCreator("creator");
+        entitySaved.setUser(user1);
         entitySaved.setEndDate(LocalDate.of(2025,1,1));
         entitySaved.setNameProject("nameProject");
         entitySaved.setDescription("description");
@@ -197,7 +250,7 @@ class ProjectCrudServiceTest {
         entitySaved.setStartDate(LocalDate.of(2025,1,1));
 
         ResponseProjectDataDto responseProjectDataDto= new ResponseProjectDataDto();
-        responseProjectDataDto.setProjectCreator(entitySaved.getProjectCreator());
+        responseProjectDataDto.setProjectCreator(entitySaved.getUser().getUsername());
         responseProjectDataDto.setDescription(entitySaved.getDescription());
         responseProjectDataDto.setNameProject(entitySaved.getNameProject());
         responseProjectDataDto.setStartDate(entitySaved.getStartDate());
@@ -222,21 +275,26 @@ class ProjectCrudServiceTest {
         entityRequest.setNameProject("nameProject");
         entityRequest.setDescription("description");
 
+        User user1= new User();
+        user1.setId(1L);
+        user1.setFirstName("firstName");
+        user1.setLastName("lastName");
+        user1.setEmail("email");
+        user1.setEnabled(true);
+        user1.setRole(Role.ROLE_USER);
+        user1.setUsername("username");
+        user1.setPassword("passwordEncrypted");
+
+
         Project entityOrigin=new Project();
         entityOrigin.setId(1L);
-        entityOrigin.setProjectCreator("creator");
+        entityOrigin.setUser(user1);
         entityOrigin.setEndDate(LocalDate.of(2025,1,1));
         entityOrigin.setNameProject("nameProject");
         entityOrigin.setDescription("description");
         entityOrigin.setPasswordAccess("password");
 
-        User user1=new User();
-        user1.setId(1L);
-        user1.setEmail("teste@gmail.com");
-        user1.setPassword("testeDecoded");
-        user1.setFirstName("teste");
-        user1.setLastName("teste");
-        user1.setUsername("teste");
+
 
        when(projectRepository.findById(idRequest)).thenReturn(Optional.of(entityOrigin));
 
@@ -265,7 +323,7 @@ class ProjectCrudServiceTest {
            ResponseProjectDataDto responseProjectDataDto=new ResponseProjectDataDto();
            Project entity=invocation.getArgument(0);
            responseProjectDataDto.setId(entity.getId());
-           responseProjectDataDto.setProjectCreator(entity.getProjectCreator());
+           responseProjectDataDto.setProjectCreator(entity.getUser().getUsername());
            responseProjectDataDto.setNameProject(entity.getNameProject());
            responseProjectDataDto.setDescription(entity.getDescription());
            responseProjectDataDto.setStartDate(entity.getStartDate());
@@ -283,6 +341,16 @@ class ProjectCrudServiceTest {
         Long idRequest=1L;
         String usernameRequest="usernameRequest";
 
+        User user1= new User();
+        user1.setId(1L);
+        user1.setFirstName("firstName");
+        user1.setLastName("lastName");
+        user1.setEmail("email");
+        user1.setEnabled(true);
+        user1.setRole(Role.ROLE_USER);
+        user1.setUsername("username");
+        user1.setPassword("passwordEncrypted");
+
         ProjectPutDto entityRequest=new ProjectPutDto();
         entityRequest.setEndDate("01/01/2025");
         entityRequest.setNameProject("nameProject");
@@ -290,19 +358,12 @@ class ProjectCrudServiceTest {
 
         Project entityOrigin=new Project();
         entityOrigin.setId(1L);
-        entityOrigin.setProjectCreator("creator");
+        entityOrigin.setUser(user1);
         entityOrigin.setEndDate(LocalDate.of(2025,1,1));
         entityOrigin.setNameProject("nameProject");
         entityOrigin.setDescription("description");
         entityOrigin.setPasswordAccess("password");
 
-        User user1=new User();
-        user1.setId(1L);
-        user1.setEmail("teste@gmail.com");
-        user1.setPassword("testeDecoded");
-        user1.setFirstName("teste");
-        user1.setLastName("teste");
-        user1.setUsername("usernameRequest");
 
         when(projectRepository.findById(idRequest)).thenReturn(Optional.of(entityOrigin));
 
@@ -332,7 +393,7 @@ class ProjectCrudServiceTest {
             ResponseProjectDataDto responseProjectDataDto=new ResponseProjectDataDto();
             Project entity=invocation.getArgument(0);
             responseProjectDataDto.setId(entity.getId());
-            responseProjectDataDto.setProjectCreator(entity.getProjectCreator());
+            responseProjectDataDto.setProjectCreator(entity.getUser().getUsername());
             responseProjectDataDto.setNameProject(entity.getNameProject());
             responseProjectDataDto.setDescription(entity.getDescription());
             responseProjectDataDto.setStartDate(entity.getStartDate());
@@ -349,6 +410,16 @@ class ProjectCrudServiceTest {
     void updateDataProjectFailedPerIdNotFoundInDb(){
         Long idRequest=2L;
 
+        User user1= new User();
+        user1.setId(1L);
+        user1.setFirstName("firstName");
+        user1.setLastName("lastName");
+        user1.setEmail("email");
+        user1.setEnabled(true);
+        user1.setRole(Role.ROLE_USER);
+        user1.setUsername("username");
+        user1.setPassword("passwordEncrypted");
+
         ProjectPutDto entityRequest=new ProjectPutDto();
         entityRequest.setEndDate("01/01/2025");
         entityRequest.setNameProject("nameProject");
@@ -356,7 +427,7 @@ class ProjectCrudServiceTest {
 
         Project entityOrigin=new Project();
         entityOrigin.setId(1L);
-        entityOrigin.setProjectCreator("creator");
+        entityOrigin.setUser(user1);
         entityOrigin.setEndDate(LocalDate.of(2025,1,1));
         entityOrigin.setStartDate(LocalDate.of(2025,1,1));
         entityOrigin.setNameProject("nameProject");
@@ -378,21 +449,24 @@ class ProjectCrudServiceTest {
         entityDtoRequest.setNameProject("nameProject");
         entityDtoRequest.setDescription("description");
 
+        User user1= new User();
+        user1.setId(1L);
+        user1.setFirstName("firstName");
+        user1.setLastName("lastName");
+        user1.setEmail("email");
+        user1.setEnabled(true);
+        user1.setRole(Role.ROLE_USER);
+        user1.setUsername("username");
+        user1.setPassword("passwordEncrypted");
+
         Project entityOrigin=new Project();
         entityOrigin.setId(1L);
-        entityOrigin.setProjectCreator("creator");
+        entityOrigin.setUser(user1);
         entityOrigin.setEndDate(LocalDate.of(2025,1,1));
         entityOrigin.setNameProject("nameProject");
         entityOrigin.setDescription("description");
         entityOrigin.setPasswordAccess("password");
 
-        User user1=new User();
-        user1.setId(1L);
-        user1.setEmail("teste@gmail.com");
-        user1.setPassword("testeDecoded");
-        user1.setFirstName("teste");
-        user1.setLastName("teste");
-        user1.setUsername("teste");
 
         when(projectRepository.findById(idRequest)).thenReturn(Optional.of(entityOrigin));
 

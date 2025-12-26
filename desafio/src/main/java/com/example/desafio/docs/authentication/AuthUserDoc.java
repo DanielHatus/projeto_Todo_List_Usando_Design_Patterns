@@ -1,4 +1,4 @@
-package com.example.desafio.docs.authetication;
+package com.example.desafio.docs.authentication;
 
 import com.example.desafio.dto.request.authentication.UserLoginDto;
 import com.example.desafio.dto.request.authentication.UserRegisterDto;

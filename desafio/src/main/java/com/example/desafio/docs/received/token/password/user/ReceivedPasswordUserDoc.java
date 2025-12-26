@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import org.springframework.http.ResponseEntity;
 
-@Tag(name = "Send an email to recover your password.",
+@Tag(name = "Send Email Recover Password",
         description = "This controller is responsible for sending the email " +
                 "with the password reset token to the user and also for validating" +
                 " the token sent by the user. It checks if the token has not expired" +

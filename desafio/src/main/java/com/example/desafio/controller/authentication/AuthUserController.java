@@ -1,6 +1,6 @@
 package com.example.desafio.controller.authentication;
 
-import com.example.desafio.docs.authetication.AuthUserDoc;
+import com.example.desafio.docs.authentication.AuthUserDoc;
 import com.example.desafio.dto.request.authentication.UserLoginDto;
 import com.example.desafio.dto.request.authentication.UserRegisterDto;
 import com.example.desafio.dto.response.authentication.ResponseDtoTokens;

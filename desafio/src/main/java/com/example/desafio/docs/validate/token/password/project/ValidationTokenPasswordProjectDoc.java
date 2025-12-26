@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 
-@Tag(name="controller that validates the password recovery token"
+@Tag(name="Validates Recovery Token"
         ,description = "The controller will receive the token generated at another endpoint. It will validate whether the token passed " +
         "actually exists, whether it has already been used, and whether it has expired.")
 public interface ValidationTokenPasswordProjectDoc{

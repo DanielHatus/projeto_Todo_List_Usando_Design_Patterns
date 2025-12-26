@@ -55,14 +55,14 @@ public class TaskCrudService{
     public List<ResponseTaskDataDto> getTasksByOrder(Status status, Priority priority, Long idProject){
 
         if (!projectRepository.existsById(idProject)){
-            log.error("❌ The ID x of the project passed in the filter does not exist. Returning a NotFoundException.");
+            log.error("❌ The ID {} of the project passed in the filter does not exist. Returning a NotFoundException.",idProject);
             throw new NotFoundException("idProject not found in database");
         }
-        log.debug("✅ The ID passed in one of the filters was successfully validated. The flow will now receive all tasks according to the" +
-                " passed filters.");
+        log.debug("✅ The ID {} passed in one of the filters was successfully validated. The flow will now receive all tasks according to the" +
+                " passed filters.",idProject);
 
         log.debug("✅ Returning the list of task entities according to the filters passed in the request now.");
-        return taskMapperCore.listEntityTasksInResponseTaskDataDto(taskRepository.findByStausAndPriorityAndProjectId(status, priority, idProject));
+        return taskMapperCore.listEntityTasksInResponseTaskDataDto(taskRepository.findByStatusAndPriorityAndProjectId(status, priority, idProject));
     }
 
     public ResponseTaskDataDto getTaskById(Long id){
@@ -99,7 +99,7 @@ public class TaskCrudService{
 
     public void deleteTask(Long id){
         try{
-            projectRepository.deleteById(id);
+            taskRepository.deleteById(id);
             log.debug("✅ task successfully deleted.");
         }
         catch (EmptyResultDataAccessException e){
