@@ -20,7 +20,7 @@ services:
       retries: 5
 
   api:
-    build: .
+    build: ..
     container_name: desafio_api
     restart: always
     depends_on:
