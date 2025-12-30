@@ -1258,7 +1258,7 @@ SECRET_KEY_IN_BASE_64=cUFZeW5zcVRSam5CWXJhdHByOUpha2pCcGRIRm0wZUE0NzBHUFByN2tyWU
 
 <h2>Testes Desenvolvidos Do Software</h2>
 
-<p>Optei Por fazer Somente Os Testes Unitários do service, as Classes da camada Facade que Acomplam uma compexidade maior, optei por nao fazer os testes unitários por conta do tempo, basicamente estou viajando enquanto desenvolvo os testes(o software em sí foi terminando 1 dia antes da viagem), consigo usar 1h30 por dia da viagem(hora de desanso pós almoço) para desenvolver os testes unitários, por isso os testes funcionam mas nao estão muito limpos e com suas funcionalidaes separadas igual ao software em sí, e por este mesmo motivo(festas de fim de ano/viagem) nao desenvolvi os Testes De Integração dos controllers</p>
+<p>Optei Por fazer Somente Os Testes Unitários do service, as Classes da camada Facade que Acoplam uma complexidade maior, optei por não fazer os testes unitários por conta do tempo, basicamente estou viajando enquanto desenvolvo os testes(o software em sí foi terminando 1 dia antes da viagem), consigo usar 1h30 por dia da viagem(hora de desanso pós almoço) para desenvolver os testes unitários, por isso os testes funcionam mas não estão em seu melhor estado de coesão,legibilidade e manutenabilidade igual ao restante do software em sí, e por este mesmo motivo(festas de fim de ano/viagem) nao desenvolvi os Testes De Integração dos controllers.</p>
 
 <h2>Documentação dos end-points<h2>
 
