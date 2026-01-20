@@ -11,7 +11,7 @@
   line-height: 1.5;
   border: 1px solid #30363d;
 ">
-<h2>Esta é a Arvore Arquitetural do Software, uma Lembrete que a nomeclatura das pastas não importam e nem fazem uma diferença real. o que importa é a forma de organizar o software e principalmente como o fluxo das informações trafegam entre as camadas.</h2>
+<h2>Abaixo está a arvóre arquitetural do software. utilzei um MVC(Model-Viewer-Controler) para o desenvolvimento da aplicação. </h2>
 <pre>
 +---src
 |   +---main
