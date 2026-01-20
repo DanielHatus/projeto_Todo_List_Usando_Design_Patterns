@@ -1258,11 +1258,7 @@ SECRET_KEY_IN_BASE_64=cUFZeW5zcVRSam5CWXJhdHByOUpha2pCcGRIRm0wZUE0NzBHUFByN2tyWU
 
 <h2>Testes Desenvolvidos Do Software</h2>
 
-<<<<<<< HEAD
 <p>Testes unitários dos services estão todos feitos. para rodar faça<strong> mvn test</strong></p>
-=======
-<p>Optei Por fazer Somente Os Testes Unitários do service, as Classes da camada Facade que Acoplam uma complexidade maior, optei por não fazer os testes unitários por conta do tempo, basicamente estou viajando enquanto desenvolvo os testes(o software em sí foi terminando 1 dia antes da viagem), consigo usar 1h30 por dia da viagem(hora de desanso pós almoço) para desenvolver os testes unitários, por isso os testes funcionam mas não estão em seu melhor estado de coesão,legibilidade e manutenabilidade igual ao restante do software em sí, e por este mesmo motivo(festas de fim de ano/viagem) nao desenvolvi os Testes De Integração dos controllers.</p>
->>>>>>> 9ba483244096955f78ee725e63c00e4820eebb6a
 
 <h2>Documentação dos end-points<h2>
 
